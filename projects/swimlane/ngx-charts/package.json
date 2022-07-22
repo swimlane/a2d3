@@ -57,6 +57,8 @@
     "d3-time-format": "^3.0.0",
     "d3-transition": "^2.0.0",
     "tslib": "^2.0.0",
-    "@types/d3-shape": "^2.0.0"
+    "@types/d3-shape": "^2.0.0",
+    "@types/d3-scale": "^3.2.3",
+    "@types/d3-selection": "^2.0.0",
   }
 }
