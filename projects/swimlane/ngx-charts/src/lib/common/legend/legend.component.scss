@@ -1,3 +1,13 @@
+.light .chart-legend {
+  .legend-label {
+    color: #000;
+
+    .active .legend-label-text {
+      color: #afb7c8;
+    }
+  }
+}
+
 .chart-legend {
   display: inline-block;
   padding: 0;
