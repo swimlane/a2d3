@@ -48,8 +48,8 @@ export class ComboChartComponent extends BaseChartComponent {
   @Input() showGridLines: boolean = true;
   @Input() activeEntries: any[] = [];
   @Input() schemeType: ScaleType;
-  @Input() xAxisTickFormatting: any;
-  @Input() yAxisTickFormatting: any;
+  @Input() xAxisTickFormatting: (value: any) => any | undefined;;
+  @Input() yAxisTickFormatting: (value: any) => any | undefined;;
   @Input() yRightAxisTickFormatting: any;
   @Input() roundDomains: boolean = false;
   @Input() colorSchemeLine: Color;

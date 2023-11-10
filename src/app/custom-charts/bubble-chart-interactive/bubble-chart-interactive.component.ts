@@ -159,8 +159,8 @@ export class BubbleChartInteractiveComponent extends BaseChartComponent {
   @Input() showYAxisLabel: boolean;
   @Input() xAxisLabel: string;
   @Input() yAxisLabel: string;
-  @Input() xAxisTickFormatting: any;
-  @Input() yAxisTickFormatting: any;
+  @Input() xAxisTickFormatting: (value: any) => any | undefined;;
+  @Input() yAxisTickFormatting: (value: any) => any | undefined;;
   @Input() xAxisTicks: any[];
   @Input() yAxisTicks: any[];
   @Input() roundDomains: boolean = false;

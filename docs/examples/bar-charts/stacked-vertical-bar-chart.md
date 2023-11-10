@@ -31,7 +31,7 @@
 | maxXAxisTickLength  | number             | 16            | max length of the ticks. If `trimXAxisTicks` is `true`, ticks over this length will be trimmed                    |
 | maxYAxisTickLength  | number             | 16            | max length of the ticks. If `trimYAxisTicks` is `true`, ticks over this length will be trimmed                    |
 | xAxisTickFormatting | function           |               | the x axis tick formatting                                                                                        |
-| yAxisTickFormatting | function           |               | the y axis tick formatting                                                                                        |
+| yAxisTickFormatting | function           |               | the y axis tick formatting. If the return value is `undefined` the tick will be omitted                                                                                        |
 | xAxisTicks          | any\[\]            |               | predefined list of x axis tick values                                                                             |
 | yAxisTicks          | any\[\]            |               | predefined list of y axis tick values                                                                             |
 | noBarWhenZero       | boolean            | true          | hide bar if value is 0 and setting is true                                                                        |

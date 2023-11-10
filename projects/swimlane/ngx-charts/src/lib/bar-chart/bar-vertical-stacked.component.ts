@@ -164,8 +164,8 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() rotateXAxisTicks: boolean = true;
   @Input() maxXAxisTickLength: number = 16;
   @Input() maxYAxisTickLength: number = 16;
-  @Input() xAxisTickFormatting: any;
-  @Input() yAxisTickFormatting: any;
+  @Input() xAxisTickFormatting: (value: any) => any | undefined;;
+  @Input() yAxisTickFormatting: (value: any) => any | undefined;;
   @Input() xAxisTicks: any[];
   @Input() yAxisTicks: any[];
   @Input() barPadding: number = 8;

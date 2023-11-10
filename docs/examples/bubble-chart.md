@@ -25,7 +25,7 @@
 | yAxisLabel          | string             |               | the y axis label text                                                                                           |
 | rotateXAxisTicks    | boolean            | true          | enable automic rotation of x-axis ticks to prevent overlaps                                                     |
 | xAxisTickFormatting | function           |               | the x axis tick formatting                                                                                      |
-| yAxisTickFormatting | function           |               | the y axis tick formatting                                                                                      |
+| yAxisTickFormatting | function           |               | the y axis tick formatting. If the return value is `undefined` the tick will be omitted                                                                                      |
 | xAxisTicks          | any[]              |               | predefined list of x axis tick values                                                                           |
 | yAxisTicks          | any[]              |               | predefined list of y axis tick values                                                                           |
 | activeEntries       | object[]           | []            | elements to highlight                                                                                           |
