@@ -88,6 +88,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
               [showDataLabel]="showDataLabel"
               [dataLabelFormatting]="dataLabelFormatting"
               [seriesName]="group.name"
+              [roundEdges]="roundEdges"
               [animations]="animations"
               [noBarWhenZero]="noBarWhenZero"
               (select)="onClick($event, group)"
@@ -118,6 +119,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
             [showDataLabel]="showDataLabel"
             [dataLabelFormatting]="dataLabelFormatting"
             [seriesName]="group.name"
+            [roundEdges]="roundEdges"
             [animations]="animations"
             [noBarWhenZero]="noBarWhenZero"
             (select)="onClick($event, group)"
@@ -169,6 +171,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() xAxisTicks: any[];
   @Input() yAxisTicks: any[];
   @Input() barPadding: number = 8;
+  @Input() roundEdges: boolean = true;
   @Input() roundDomains: boolean = false;
   @Input() yScaleMax: number;
   @Input() showDataLabel: boolean = false;

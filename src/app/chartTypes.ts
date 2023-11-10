@@ -171,6 +171,7 @@ const chartGroups = [
           'showGridLines',
           'roundDomains',
           'tooltipDisabled',
+          'roundEdges',
           'yScaleMax',
           'showDataLabel',
           'trimXAxisTicks',

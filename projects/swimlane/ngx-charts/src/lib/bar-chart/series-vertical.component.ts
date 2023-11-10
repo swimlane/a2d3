@@ -185,6 +185,7 @@ export class SeriesVerticalComponent implements OnChanges {
       const label = this.getLabel(d);
       const formattedLabel = formatLabel(label);
       const roundEdges = this.roundEdges;
+      const isLastBar = index === this.series.length - 1;
       d0Type = value > 0 ? D0Types.positive : D0Types.negative;
 
       const bar: any = {
@@ -218,6 +219,9 @@ export class SeriesVerticalComponent implements OnChanges {
         bar.y = this.yScale(offset1);
         bar.offset0 = offset0;
         bar.offset1 = offset1;
+        if (!isLastBar) {
+          bar.roundEdges = false;
+        }
       } else if (this.type === BarChartType.Normalized) {
         let offset0 = d0[d0Type];
         let offset1 = offset0 + value;
@@ -263,8 +267,7 @@ export class SeriesVerticalComponent implements OnChanges {
         ? undefined
         : `
         <span class="tooltip-label">${escapeLabel(tooltipLabel)}</span>
-        <span class="tooltip-val">${
-          this.dataLabelFormatting ? this.dataLabelFormatting(value) : value.toLocaleString()
+        <span class="tooltip-val">${this.dataLabelFormatting ? this.dataLabelFormatting(value) : value.toLocaleString()
         }</span>
       `;
 
