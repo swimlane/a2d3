@@ -152,7 +152,7 @@ export class SeriesVerticalComponent implements OnChanges {
 
   ngOnInit() {
     if (isPlatformServer(this.platformId)) {
-      this.isSSR = true;
+      this.isSSR = false // skip;
     }
   }
 

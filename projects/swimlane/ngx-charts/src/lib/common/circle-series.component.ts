@@ -147,7 +147,7 @@ export class CircleSeriesComponent implements OnChanges, OnInit {
     this.gradientFill = `url(#${this.gradientId})`;
 
     if (isPlatformServer(this.platformId)) {
-      this.isSSR = true;
+      this.isSSR = false // skip;
     }
   }
 
