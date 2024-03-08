@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Location, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import * as shape from 'd3-shape';
 import * as d3Array from 'd3-array';
@@ -26,6 +26,7 @@ import pkg from '../../projects/swimlane/ngx-charts/package.json';
 import { InputTypes } from '@swimlane/ngx-ui';
 import { LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
 import { ScaleType } from '@swimlane/ngx-charts/common/types/scale-type.enum';
+import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.component';
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 const weekdayName = new Intl.DateTimeFormat('en-us', { weekday: 'short' });
@@ -268,6 +269,12 @@ export class AppComponent implements OnInit {
   dataVisible: boolean = true;
   dimVisible: boolean = true;
   optsVisible: boolean = true;
+  exportVisible: boolean = true;
+
+  // Export Image
+  @ViewChild('ngxCharts') chartEl: BaseChartComponent | null;
+  exportFormat: 'png' | 'jpg' | 'svg' = 'svg';
+  transparentBackground: boolean = false;
 
   constructor(public location: Location) {
     this.mathFunction = this.getFunction();
@@ -484,6 +491,31 @@ export class AppComponent implements OnInit {
 
   applyDimensions() {
     this.view = [this.width, this.height];
+  }
+
+  exportImage() {
+    this.chartEl ||
+      alert(
+        'If you have multiple component instances, you cannot determine the chart to be exported. Manually specify the node to be exported'
+      );
+    if (this.chartEl instanceof BaseChartComponent) {
+      const { width, height } = this.chartEl.chartEl.nativeElement.getBoundingClientRect();
+      this.chartEl
+        .toDataURL({
+          type: this.exportFormat,
+          canvasOptions: {
+            transparentBackground: this.transparentBackground,
+            width,
+            height
+          }
+        })
+        .then(dataUrl => {
+          const link = document.createElement('a');
+          link.download = `${this.chartType}.${this.exportFormat}`;
+          link.href = dataUrl;
+          link.click();
+        });
+    }
   }
 
   toggleFitContainer() {
@@ -795,6 +827,7 @@ export class AppComponent implements OnInit {
   yRightTickFormat(data) {
     return `${data}%`;
   }
+
   /*
   **
   End of Combo Chart

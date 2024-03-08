@@ -2,6 +2,7 @@
   <div class="chart-col">
     <div style="position: absolute; top: 50px; left: 50px; right: 50px; bottom: 50px">
       <ngx-charts-bar-vertical
+        #ngxCharts
         *ngIf="chartType === 'bar-vertical'"
         class="chart-container"
         [view]="view"
@@ -40,6 +41,7 @@
       >
       </ngx-charts-bar-vertical>
       <ngx-charts-bar-horizontal
+        #ngxCharts
         *ngIf="chartType === 'bar-horizontal'"
         class="chart-container"
         [view]="view"
@@ -77,6 +79,7 @@
       >
       </ngx-charts-bar-horizontal>
       <ngx-charts-bar-vertical-2d
+        #ngxCharts
         *ngIf="chartType === 'bar-vertical-2d'"
         class="chart-container"
         [view]="view"
@@ -115,6 +118,7 @@
       >
       </ngx-charts-bar-vertical-2d>
       <ngx-charts-bar-horizontal-2d
+        #ngxCharts
         *ngIf="chartType === 'bar-horizontal-2d'"
         class="chart-container"
         [view]="view"
@@ -153,6 +157,7 @@
       >
       </ngx-charts-bar-horizontal-2d>
       <ngx-charts-bar-vertical-stacked
+        #ngxCharts
         *ngIf="chartType === 'bar-vertical-stacked'"
         class="chart-container"
         [view]="view"
@@ -189,6 +194,7 @@
       >
       </ngx-charts-bar-vertical-stacked>
       <ngx-charts-bar-horizontal-stacked
+        #ngxCharts
         *ngIf="chartType === 'bar-horizontal-stacked'"
         class="chart-container"
         [view]="view"
@@ -225,6 +231,7 @@
       >
       </ngx-charts-bar-horizontal-stacked>
       <ngx-charts-bar-vertical-normalized
+        #ngxCharts
         *ngIf="chartType === 'bar-vertical-normalized'"
         class="chart-container"
         [view]="view"
@@ -259,6 +266,7 @@
       >
       </ngx-charts-bar-vertical-normalized>
       <ngx-charts-bar-horizontal-normalized
+        #ngxCharts
         *ngIf="chartType === 'bar-horizontal-normalized'"
         class="chart-container"
         [view]="view"
@@ -293,6 +301,7 @@
       >
       </ngx-charts-bar-horizontal-normalized>
       <ngx-charts-pie-chart
+        #ngxCharts
         *ngIf="chartType === 'pie-chart'"
         class="chart-container"
         [view]="view"
@@ -316,6 +325,7 @@
       >
       </ngx-charts-pie-chart>
       <ngx-charts-advanced-pie-chart
+        #ngxCharts
         *ngIf="chartType === 'advanced-pie-chart'"
         class="chart-container"
         [view]="view"
@@ -332,6 +342,7 @@
       >
       </ngx-charts-advanced-pie-chart>
       <ngx-charts-pie-grid
+        #ngxCharts
         *ngIf="chartType === 'pie-grid'"
         class="chart-container"
         [view]="view"
@@ -346,6 +357,7 @@
       >
       </ngx-charts-pie-grid>
       <ngx-charts-line-chart
+        #ngxCharts
         *ngIf="chartType === 'line-chart'"
         [view]="view"
         class="chart-container"
@@ -386,6 +398,7 @@
       >
       </ngx-charts-line-chart>
       <ngx-charts-polar-chart
+        #ngxCharts
         *ngIf="chartType === 'polar-chart'"
         [view]="view"
         class="chart-container"
@@ -418,6 +431,7 @@
       >
       </ngx-charts-polar-chart>
       <ngx-charts-bubble-chart
+        #ngxCharts
         *ngIf="chartType === 'bubble-chart'"
         [view]="view"
         class="chart-container"
@@ -456,6 +470,7 @@
       >
       </ngx-charts-bubble-chart>
       <ngx-charts-area-chart
+        #ngxCharts
         *ngIf="chartType === 'area-chart'"
         class="chart-container"
         [view]="view"
@@ -495,6 +510,7 @@
       >
       </ngx-charts-area-chart>
       <ngx-charts-area-chart-stacked
+        #ngxCharts
         *ngIf="chartType === 'area-chart-stacked'"
         class="chart-container"
         [view]="view"
@@ -533,6 +549,7 @@
       >
       </ngx-charts-area-chart-stacked>
       <ngx-charts-area-chart-normalized
+        #ngxCharts
         *ngIf="chartType === 'area-chart-normalized'"
         class="chart-container"
         [view]="view"
@@ -566,6 +583,7 @@
       >
       </ngx-charts-area-chart-normalized>
       <combo-chart-component
+        #ngxCharts
         *ngIf="chartType === 'combo-chart'"
         class="chart-container"
         [view]="view"
@@ -598,6 +616,7 @@
       >
       </combo-chart-component>
       <ngx-charts-heat-map
+        #ngxCharts
         *ngIf="chartType === 'heat-map'"
         class="chart-container"
         [min]="heatmapMin"
@@ -628,6 +647,7 @@
       >
       </ngx-charts-heat-map>
       <ngx-charts-heat-map
+        #ngxCharts
         *ngIf="chartType === 'calendar'"
         class="chart-container"
         [view]="view"
@@ -656,6 +676,7 @@
       >
       </ngx-charts-heat-map>
       <ngx-charts-tree-map
+        #ngxCharts
         *ngIf="chartType === 'tree-map'"
         class="chart-container"
         [view]="view"
@@ -670,6 +691,7 @@
       >
       </ngx-charts-tree-map>
       <ngx-charts-number-card
+        #ngxCharts
         *ngIf="chartType === 'number-card'"
         class="chart-container"
         [view]="view"
@@ -682,6 +704,7 @@
       >
       </ngx-charts-number-card>
       <ngx-charts-box-chart
+        #ngxCharts
         *ngIf="chartType === 'box-plot'"
         class="chart-container"
         [view]="view"
@@ -751,6 +774,7 @@
         </ngx-slider>
         Cost: ${{ personnelCost }} / hr
         <ngx-charts-number-card
+          #ngxCharts
           class="chart-container"
           [view]="view"
           [scheme]="colorScheme"
@@ -764,6 +788,7 @@
         </ngx-charts-number-card>
       </div>
       <ngx-charts-gauge
+        #ngxCharts
         *ngIf="chartType === 'gauge'"
         class="chart-container"
         [view]="view"
@@ -791,6 +816,7 @@
       >
       </ngx-charts-gauge>
       <ngx-charts-linear-gauge
+        #ngxCharts
         *ngIf="chartType === 'linear-gauge'"
         class="chart-container"
         [view]="view"
@@ -896,6 +922,7 @@
           </ng-container>
         </div>
         <ngx-charts-tree-map
+          #ngxCharts
           [view]="view"
           [scheme]="colorScheme"
           [results]="treemap"
@@ -923,6 +950,7 @@
           </button>
         </div>
         <ngx-charts-bubble-chart-interactive
+          #ngxCharts
           [view]="view"
           [results]="bubbleDemoTempData"
           [animations]="animations"
@@ -947,6 +975,7 @@
         </ngx-charts-bubble-chart-interactive>
       </div>
       <ngx-charts-line-chart
+        #ngxCharts
         *ngIf="chartType === 'line-reference-lines'"
         [view]="view"
         class="chart-container"
@@ -984,6 +1013,7 @@
       >
       </ngx-charts-line-chart>
       <ngx-charts-bar-vertical
+        #ngxCharts
         *ngIf="chartType === 'tooltip-templates'"
         class="chart-container"
         [view]="view"
@@ -1022,6 +1052,7 @@
         </ng-template>
       </ngx-charts-bar-vertical>
       <ngx-charts-sparkline
+        #ngxCharts
         *ngIf="chartType === 'sparkline'"
         [view]="[100, 50]"
         class="chart-container"
@@ -1032,6 +1063,7 @@
       >
       </ngx-charts-sparkline>
       <ngx-charts-timeline-filter-bar-chart
+        #ngxCharts
         *ngIf="chartType === 'timeline-filter-bar-chart-demo'"
         [view]="view"
         class="chart-container"
@@ -1053,6 +1085,7 @@
       </ngx-charts-timeline-filter-bar-chart>
     </div>
     <ngx-charts-bar-vertical-stacked
+      #ngxCharts
       *ngIf="chartType === 'bar-vertical-stacked-negative'"
       class="chart-container"
       [view]="view"
@@ -1087,6 +1120,7 @@
     >
     </ngx-charts-bar-vertical-stacked>
     <ngx-charts-bar-horizontal-stacked
+      #ngxCharts
       *ngIf="chartType === 'bar-horizontal-stacked-negative'"
       class="chart-container"
       [view]="view"
@@ -1573,6 +1607,30 @@
           <input type="number" [(ngModel)]="yScaleMax" /><br />
         </div>
       </div>
+
+      <h3 (click)="exportVisible = !exportVisible" style="cursor: pointer">
+        <span [class.arrow-down]="exportVisible" [class.arrow-right]="!exportVisible"> </span>
+        <strong>Export</strong>
+      </h3>
+      <div [hidden]="!exportVisible" style="margin-left: 10px">
+        <label> Format </label><br />
+        <select [ngModel]="exportFormat" (ngModelChange)="exportFormat = $event">
+          >
+          <option [value]="'svg'">svg</option>
+          <option [value]="'png'">png</option>
+          <option [value]="'jpg'">jpg</option>
+        </select>
+
+        <br />
+        <label>
+          <input type="checkbox" [(ngModel)]="transparentBackground" />
+          Transparent
+        </label>
+
+        <br />
+        <button class="btn btn-primary" (click)="exportImage()">Export Image</button>
+      </div>
+
       <h3><a href="https://swimlane.gitbooks.io/ngx-charts/content/" target="_blank">Documentation</a></h3>
     </div>
   </div>

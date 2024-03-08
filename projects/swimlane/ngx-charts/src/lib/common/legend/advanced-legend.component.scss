@@ -1,8 +1,11 @@
 .advanced-pie-legend {
   float: left;
   position: relative;
-  top: 50%;
-  transform: translate(0, -50%);
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
 
   .total-value {
     font-size: 36px;
