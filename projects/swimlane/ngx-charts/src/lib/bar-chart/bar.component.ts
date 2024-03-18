@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -65,16 +66,23 @@ export class BarComponent implements OnChanges {
   gradientStops: Gradient[];
   hasGradient: boolean = false;
   hideBar: boolean = false;
+  pathAnimationDebounceTimer = null;
 
-  constructor(element: ElementRef) {
+  constructor(private cdf: ChangeDetectorRef, element: ElementRef) {
     this.element = element.nativeElement;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.roundEdges) {
+    if (
+      changes.roundEdges ||
+      /* fix: appears to render animation misaligned */
+      changes.x ||
+      changes.y ||
+      changes.height ||
+      changes.width
+    ) {
       this.loadAnimation();
-    }
-    this.update();
+    } else this.update();
   }
 
   update(): void {
@@ -88,13 +96,20 @@ export class BarComponent implements OnChanges {
       this.hasGradient = false;
     }
 
-    this.updatePathEl();
     this.checkToHideBar();
+    if (this.pathAnimationDebounceTimer) {
+      clearTimeout(this.pathAnimationDebounceTimer);
+    }
+    this.pathAnimationDebounceTimer = setTimeout(() => {
+      this.updatePathEl();
+      this.pathAnimationDebounceTimer = null;
+    }, 100);
   }
 
   loadAnimation(): void {
     this.path = this.getStartingPath();
-    setTimeout(this.update.bind(this), 100);
+    this.cdf.markForCheck();
+    this.update();
   }
 
   updatePathEl(): void {

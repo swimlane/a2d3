@@ -200,6 +200,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   barChartType = BarChartType;
 
   ngOnInit() {
+    super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
       this.isSSR = true;
     }
