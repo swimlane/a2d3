@@ -1,12 +1,12 @@
 import {
-  Component,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
+  Component,
   ContentChild,
-  TemplateRef
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  ViewEncapsulation
 } from '@angular/core';
 import { scaleBand, scaleLinear } from 'd3-scale';
 
@@ -143,6 +143,11 @@ export class BarVerticalComponent extends BaseChartComponent {
   yAxisWidth: number = 0;
   legendOptions: LegendOptions;
   dataLabelMaxHeight: any = { negative: 0, positive: 0 };
+
+  test(...args) {
+    console.log(args);
+    debugger;
+  }
 
   update(): void {
     super.update();

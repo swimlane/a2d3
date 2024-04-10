@@ -1,6 +1,7 @@
 import { Component, SimpleChanges, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { BarOrientation } from './types/bar-orientation.enum';
 import { ViewDimensions } from './types/view-dimension.interface';
+import {animate, style, transition, trigger} from "@angular/animations";
 
 interface GridPanel {
   class: ClassEnum;
@@ -22,6 +23,7 @@ enum ClassEnum {
     <svg:g
       ngx-charts-grid-panel
       *ngFor="let gridPanel of gridPanels"
+      @toggleHide
       [height]="gridPanel.height"
       [width]="gridPanel.width"
       [x]="gridPanel.x"
@@ -31,7 +33,23 @@ enum ClassEnum {
       [class.even]="gridPanel.class === 'even'"
     ></svg:g>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleHide', [
+      transition(':leave', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms', style({ opacity: '0' }))
+      ]),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms 300ms', style({ opacity: '1' }))
+      ])
+    ])
+  ]
 })
 export class GridPanelSeriesComponent implements OnChanges {
   gridPanels: GridPanel[];

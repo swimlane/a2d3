@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -15,11 +16,12 @@ import { id } from '../utils/id';
 import { DataItem } from '../models/chart-data.model';
 import { BarOrientation } from '../common/types/bar-orientation.enum';
 import { Gradient } from '../common/types/gradient.interface';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'g[ngx-charts-bar]',
   template: `
-    <svg:defs *ngIf="hasGradient">
+    <svg:defs *ngIf="hasGradient" @toggleAniamtion>
       <svg:g ngx-charts-svg-linear-gradient [orientation]="orientation" [name]="gradientId" [stops]="gradientStops" />
     </svg:defs>
     <svg:path
@@ -27,6 +29,8 @@ import { Gradient } from '../common/types/gradient.interface';
       stroke="none"
       role="img"
       tabIndex="-1"
+      @toggleAniamtion
+      (@toggleAniamtion.start)="onLeaveAnimation($event)"
       [class.active]="isActive"
       [class.hidden]="hideBar"
       [attr.d]="path"
@@ -35,7 +39,23 @@ import { Gradient } from '../common/types/gradient.interface';
       (click)="select.emit(data)"
     />
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleAniamtion', [
+      transition(':enter', [
+        style({
+          opacity: 0
+        }),
+        animate('500ms 600ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({
+          opacity: 1
+        }),
+        animate('500ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class BarComponent implements OnChanges {
   @Input() fill: string;
@@ -65,16 +85,23 @@ export class BarComponent implements OnChanges {
   gradientStops: Gradient[];
   hasGradient: boolean = false;
   hideBar: boolean = false;
+  pathAnimationDebounceTimer = null;
 
-  constructor(element: ElementRef) {
+  constructor(private cdf: ChangeDetectorRef, element: ElementRef) {
     this.element = element.nativeElement;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.roundEdges) {
+    if (
+      changes.roundEdges ||
+      /* fix: appears to render animation misaligned */
+      changes.x ||
+      changes.y ||
+      changes.height ||
+      changes.width
+    ) {
       this.loadAnimation();
-    }
-    this.update();
+    } else this.update();
   }
 
   update(): void {
@@ -88,20 +115,39 @@ export class BarComponent implements OnChanges {
       this.hasGradient = false;
     }
 
-    this.updatePathEl();
     this.checkToHideBar();
+    if (this.pathAnimationDebounceTimer) {
+      clearTimeout(this.pathAnimationDebounceTimer);
+    }
+    this.pathAnimationDebounceTimer = setTimeout(() => {
+      this.updatePathEl();
+      this.pathAnimationDebounceTimer = null;
+    }, 100);
   }
 
   loadAnimation(): void {
     this.path = this.getStartingPath();
-    setTimeout(this.update.bind(this), 100);
+    this.cdf.markForCheck();
+    this.update();
+  }
+
+  onLeaveAnimation(event) {
+    if (event.fromState && event.toState !== 'void') return;
+    this.loadBackOffAnimation();
+  }
+
+  loadBackOffAnimation(): void {
+    const node = select(this.element).select('.bar');
+    node.transition().duration(500).attr('d', this.getStartingPath());
   }
 
   updatePathEl(): void {
     const node = select(this.element).select('.bar');
     const path = this.getPath();
     if (this.animations) {
-      node.transition().duration(500).attr('d', path);
+      setTimeout(() => {
+        node.transition().duration(500).attr('d', path);
+      }, 500);
     } else {
       node.attr('d', path);
     }

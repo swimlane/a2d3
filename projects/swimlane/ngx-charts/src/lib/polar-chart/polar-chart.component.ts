@@ -30,6 +30,7 @@ const twoPI = 2 * Math.PI;
   selector: 'ngx-charts-polar-chart',
   template: `
     <ngx-charts-chart
+      @animationState
       [view]="[width, height]"
       [showLegend]="legend"
       [legendOptions]="legendOptions"
@@ -92,7 +93,7 @@ const twoPI = 2 * Math.PI;
           [width]="dims.width"
         ></svg:g>
         <svg:g *ngIf="!isSSR" [attr.transform]="transformPlot">
-          <svg:g *ngFor="let series of results; trackBy: trackBy" [@animationState]="'active'">
+          <svg:g *ngFor="let series of results; trackBy: trackBy">
             <svg:g
               ngx-charts-polar-series
               [gradient]="gradient"
@@ -147,12 +148,23 @@ const twoPI = 2 * Math.PI;
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('animationState', [
+      transition(':enter', [
+        style({
+          opacity: 0
+        }),
+        animate(
+          '800ms 1000ms',
+          style({
+            opacity: 1
+          })
+        )
+      ]),
       transition(':leave', [
         style({
           opacity: 1
         }),
         animate(
-          500,
+          '700ms',
           style({
             opacity: 0
           })
@@ -225,6 +237,7 @@ export class PolarChartComponent extends BaseChartComponent implements OnInit {
   isSSR = false;
 
   ngOnInit() {
+    super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
       this.isSSR = true;
     }

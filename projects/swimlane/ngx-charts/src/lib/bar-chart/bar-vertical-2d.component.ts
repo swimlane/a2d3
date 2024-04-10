@@ -1,15 +1,14 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  ContentChild,
+  EventEmitter,
   Input,
   Output,
-  ViewEncapsulation,
-  EventEmitter,
-  ChangeDetectionStrategy,
-  ContentChild,
   TemplateRef,
-  TrackByFunction
+  TrackByFunction,
+  ViewEncapsulation
 } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
 import { scaleBand, scaleLinear } from 'd3-scale';
 
 import { calculateViewDimensions } from '../common/view-dimensions.helper';
@@ -80,7 +79,6 @@ import { isPlatformServer } from '@angular/common';
           <svg:g
             ngx-charts-series-vertical
             *ngFor="let group of results; let index = index; trackBy: trackBy"
-            [@animationState]="'active'"
             [attr.transform]="groupTransform(group)"
             [activeEntries]="activeEntries"
             [xScale]="innerScale"
@@ -134,18 +132,7 @@ import { isPlatformServer } from '@angular/common';
   `,
   styleUrls: ['../common/base-chart.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('animationState', [
-      transition(':leave', [
-        style({
-          opacity: 1,
-          transform: '*'
-        }),
-        animate(500, style({ opacity: 0, transform: 'scale(0)' }))
-      ])
-    ])
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarVertical2DComponent extends BaseChartComponent {
   @Input() legend: boolean = false;
@@ -206,6 +193,7 @@ export class BarVertical2DComponent extends BaseChartComponent {
   barOrientation = BarOrientation;
 
   ngOnInit() {
+    super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
       this.isSSR = true;
     }

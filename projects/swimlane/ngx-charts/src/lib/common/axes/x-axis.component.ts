@@ -12,6 +12,7 @@ import {
 import { XAxisTicksComponent } from './x-axis-ticks.component';
 import { Orientation } from '../types/orientation.enum';
 import { ViewDimensions } from '../types/view-dimension.interface';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'g[ngx-charts-x-axis]',
@@ -20,6 +21,7 @@ import { ViewDimensions } from '../types/view-dimension.interface';
       <svg:g
         ngx-charts-x-axis-ticks
         *ngIf="xScale"
+        @toggleHide
         [trimTicks]="trimTicks"
         [rotateTicks]="rotateTicks"
         [maxTickLength]="maxTickLength"
@@ -38,6 +40,7 @@ import { ViewDimensions } from '../types/view-dimension.interface';
       <svg:g
         ngx-charts-axis-label
         *ngIf="showLabel"
+        @toggleHide
         [label]="labelText"
         [offset]="labelOffset"
         [orient]="orientation.Bottom"
@@ -46,7 +49,23 @@ import { ViewDimensions } from '../types/view-dimension.interface';
       ></svg:g>
     </svg:g>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleHide', [
+      transition(':leave', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms', style({ opacity: '0' }))
+      ]),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms 300ms', style({ opacity: '1' }))
+      ])
+    ])
+  ]
 })
 export class XAxisComponent implements OnChanges {
   @Input() xScale;

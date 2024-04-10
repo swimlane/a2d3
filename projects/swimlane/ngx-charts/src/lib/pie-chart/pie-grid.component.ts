@@ -22,6 +22,7 @@ import { PlacementTypes } from '../common/tooltip/position';
 import { StyleTypes } from '../common/tooltip/style.type';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { ScaleType } from '../common/types/scale-type.enum';
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'ngx-charts-pie-grid',
@@ -50,6 +51,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
           <svg:text
             *ngIf="animations"
             class="label percent-label"
+            @toggleHide
             dy="-0.5em"
             x="0"
             y="5"
@@ -61,12 +63,13 @@ import { ScaleType } from '../common/types/scale-type.enum';
           <svg:text *ngIf="!animations" class="label percent-label" dy="-0.5em" x="0" y="5" text-anchor="middle">
             {{ series.percent.toLocaleString() }}
           </svg:text>
-          <svg:text class="label" dy="0.5em" x="0" y="5" text-anchor="middle">
+          <svg:text class="label" dy="0.5em" x="0" y="5" text-anchor="middle" @toggleHide>
             {{ series.label }}
           </svg:text>
           <svg:text
             *ngIf="animations"
             class="label"
+            @toggleHide
             dy="1.23em"
             x="0"
             [attr.y]="series.outerRadius"
@@ -91,7 +94,23 @@ import { ScaleType } from '../common/types/scale-type.enum';
   `,
   styleUrls: ['../common/base-chart.component.scss', './pie-grid.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleHide', [
+      transition(':leave', [
+        style({
+          opacity: '1'
+        }),
+        animate('750ms ease-out', style({ opacity: '0' }))
+      ]),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate('750ms 400ms', style({ opacity: '1' }))
+      ])
+    ])
+  ]
 })
 export class PieGridComponent extends BaseChartComponent {
   @Input() designatedTotal: number;

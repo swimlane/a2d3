@@ -1,4 +1,14 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef, OnDestroy, ElementRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { count, decimalChecker } from './count.helper';
 
 /**
@@ -14,7 +24,7 @@ import { count, decimalChecker } from './count.helper';
   selector: '[ngx-charts-count-up]',
   template: ` {{ value }} `
 })
-export class CountUpDirective implements OnDestroy {
+export class CountUpDirective implements OnDestroy, OnChanges {
   @Input() countDuration: number = 1;
   @Input() countPrefix: string = '';
   @Input() countSuffix: string = '';
@@ -86,5 +96,9 @@ export class CountUpDirective implements OnDestroy {
     };
 
     this.animationReq = count(this.countFrom, this.countTo, this.countDecimals, this.countDuration, callback);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(`ngOnChanges`, changes);
   }
 }

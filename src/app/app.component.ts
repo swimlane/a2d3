@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Location, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { HashLocationStrategy, Location, LocationStrategy } from '@angular/common';
 import * as shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 
 import { Color, colorSets } from '@swimlane/ngx-charts/utils/color-sets';
-import { formatLabel, escapeLabel } from '@swimlane/ngx-charts/common/label.helper';
+import { escapeLabel, formatLabel } from '@swimlane/ngx-charts/common/label.helper';
 import {
-  single,
-  multi,
   boxData,
   bubble,
-  sankeyData,
+  fiscalYearReport,
   generateData,
   generateGraph,
-  treemap,
+  multi,
+  sankeyData,
+  single,
   timelineFilterBarData,
-  fiscalYearReport
+  treemap
 } from './data';
 import { bubbleDemoData } from './custom-charts/bubble-chart-interactive/data';
 import { BubbleChartInteractiveServerDataModel } from './custom-charts/bubble-chart-interactive/models';
@@ -26,6 +26,7 @@ import pkg from '../../projects/swimlane/ngx-charts/package.json';
 import { InputTypes } from '@swimlane/ngx-ui';
 import { LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
 import { ScaleType } from '@swimlane/ngx-charts/common/types/scale-type.enum';
+import { animateChild, query, transition, trigger } from '@angular/animations';
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 const weekdayName = new Intl.DateTimeFormat('en-us', { weekday: 'short' });
@@ -49,7 +50,8 @@ const getRandomInt = (min: number, max: number) => {
   providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['../../node_modules/@swimlane/ngx-ui/index.css', './app.component.scss'],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  animations: [trigger('queryChildAnimations', [transition(':enter, :leave', [query('@*', animateChild())])])]
 })
 export class AppComponent implements OnInit {
   APP_VERSION = pkg.version;

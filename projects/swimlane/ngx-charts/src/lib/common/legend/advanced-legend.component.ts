@@ -12,6 +12,7 @@ import { trimLabel } from '../trim-label.helper';
 import { formatLabel } from '../label.helper';
 import { DataItem, StringOrNumberOrDate } from '../../models/chart-data.model';
 import { ColorHelper } from '../color.helper';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export interface AdvancedLegendItem {
   value: StringOrNumberOrDate;
@@ -27,7 +28,7 @@ export interface AdvancedLegendItem {
 @Component({
   selector: 'ngx-charts-advanced-legend',
   template: `
-    <div class="advanced-pie-legend" [style.width.px]="width">
+    <div class="advanced-pie-legend" [style.width.px]="width" @toggleAnimation>
       <div
         *ngIf="animations"
         class="total-value"
@@ -78,7 +79,28 @@ export interface AdvancedLegendItem {
   `,
   styleUrls: ['./advanced-legend.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleAnimation', [
+      transition(':leave', [
+        style({
+          opacity: '1'
+        }),
+        animate(
+          '750ms',
+          style({
+            opacity: '0'
+          })
+        )
+      ]),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate('750ms 400ms', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class AdvancedLegendComponent implements OnChanges {
   @Input() width: number;

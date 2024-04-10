@@ -1,17 +1,15 @@
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges,
-  ElementRef,
   ChangeDetectionStrategy,
-  SimpleChanges,
-  PLATFORM_ID,
+  Component,
+  ElementRef,
   Inject,
-  OnInit
+  Input,
+  OnChanges,
+  OnInit,
+  PLATFORM_ID,
+  SimpleChanges
 } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { select } from 'd3-selection';
 import { Series } from '../models/chart-data.model';
 import { isPlatformServer } from '@angular/common';
@@ -21,7 +19,7 @@ import { isPlatformServer } from '@angular/common';
   template: `
     <svg:g *ngIf="!isSSR">
       <svg:path
-        [@animationState]="'active'"
+        @toggleAnimation
         class="line"
         [attr.d]="initialPath"
         [attr.fill]="fill"
@@ -35,16 +33,30 @@ import { isPlatformServer } from '@angular/common';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger('animationState', [
+    trigger('toggleAnimation', [
       transition(':enter', [
         style({
           strokeDasharray: 2000,
-          strokeDashoffset: 2000
+          strokeDashoffset: 2000,
         }),
         animate(
-          1000,
+          '800ms 500ms',
           style({
-            strokeDashoffset: 0
+            strokeDasharray: 2000,
+            strokeDashoffset: 0,
+          })
+        )
+      ]),
+      transition(':leave', [
+        style({
+          strokeDasharray: 2000,
+          strokeDashoffset: 0,
+        }),
+        animate(
+          '800ms',
+          style({
+            strokeDasharray: 2000,
+            strokeDashoffset: -2000,
           })
         )
       ])

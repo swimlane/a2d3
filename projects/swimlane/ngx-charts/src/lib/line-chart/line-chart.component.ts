@@ -1,24 +1,23 @@
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  ViewEncapsulation,
-  HostListener,
   ChangeDetectionStrategy,
+  Component,
   ContentChild,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
   TemplateRef,
-  OnInit
+  ViewEncapsulation
 } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
-import { scaleLinear, scaleTime, scalePoint } from 'd3-scale';
+import { scaleLinear, scalePoint, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
 
 import { calculateViewDimensions } from '../common/view-dimensions.helper';
 import { ColorHelper } from '../common/color.helper';
 import { BaseChartComponent } from '../common/base-chart.component';
 import { id } from '../utils/id';
-import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
+import { getScaleType, getUniqueXDomainValues } from '../common/domain.helper';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
@@ -83,7 +82,7 @@ import { isPlatformServer } from '@angular/common';
         ></svg:g>
         <svg:g [attr.clip-path]="clipPath">
           <svg:g *ngIf="!isSSR">
-            <svg:g *ngFor="let series of results; trackBy: trackBy" [@animationState]="'active'">
+            <svg:g *ngFor="let series of results; trackBy: trackBy">
               <svg:g
                 ngx-charts-line-series
                 [xScale]="xScale"
@@ -182,22 +181,7 @@ import { isPlatformServer } from '@angular/common';
   `,
   styleUrls: ['../common/base-chart.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('animationState', [
-      transition(':leave', [
-        style({
-          opacity: 1
-        }),
-        animate(
-          500,
-          style({
-            opacity: 0
-          })
-        )
-      ])
-    ])
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LineChartComponent extends BaseChartComponent implements OnInit {
   @Input() legend: boolean;
@@ -274,6 +258,7 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
   isSSR = false;
 
   ngOnInit() {
+    super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
       this.isSSR = true;
     }

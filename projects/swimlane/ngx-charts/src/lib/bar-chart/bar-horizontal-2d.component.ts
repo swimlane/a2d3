@@ -1,16 +1,15 @@
 import {
-  Component,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
+  Component,
   ContentChild,
+  EventEmitter,
+  Input,
+  Output,
   TemplateRef,
-  TrackByFunction
+  TrackByFunction,
+  ViewEncapsulation
 } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import { trigger, style, animate, transition } from '@angular/animations';
 
 import { scaleBand, scaleLinear } from 'd3-scale';
 
@@ -81,7 +80,6 @@ import { BarOrientation } from '../common/types/bar-orientation.enum';
         <svg:g *ngIf="!isSSR">
           <svg:g
             *ngFor="let group of results; let index = index; trackBy: trackBy"
-            [@animationState]="'active'"
             [attr.transform]="groupTransform(group)"
           >
             <svg:g
@@ -142,18 +140,7 @@ import { BarOrientation } from '../common/types/bar-orientation.enum';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['../common/base-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  animations: [
-    trigger('animationState', [
-      transition(':leave', [
-        style({
-          opacity: 1,
-          transform: '*'
-        }),
-        animate(500, style({ opacity: 0, transform: 'scale(0)' }))
-      ])
-    ])
-  ]
+  encapsulation: ViewEncapsulation.None
 })
 export class BarHorizontal2DComponent extends BaseChartComponent {
   @Input() legend: boolean = false;
@@ -213,6 +200,7 @@ export class BarHorizontal2DComponent extends BaseChartComponent {
   barOrientation = BarOrientation;
 
   ngOnInit() {
+    super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
       this.isSSR = true;
     }

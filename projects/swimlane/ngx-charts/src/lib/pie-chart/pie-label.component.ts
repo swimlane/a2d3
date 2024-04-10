@@ -1,18 +1,19 @@
 import { isPlatformServer } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnChanges,
-  SimpleChanges,
-  ChangeDetectionStrategy,
   PLATFORM_ID,
-  Inject
+  SimpleChanges
 } from '@angular/core';
 import { arc, DefaultArcObject } from 'd3-shape';
 
 import { trimLabel } from '../common/trim-label.helper';
 import { TextAnchor } from '../common/types/text-anchor.enum';
 import { DataItem } from '../models/chart-data.model';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export interface PieData extends DefaultArcObject {
   data: DataItem;
@@ -25,7 +26,12 @@ export interface PieData extends DefaultArcObject {
   selector: 'g[ngx-charts-pie-label]',
   template: `
     <title>{{ label }}</title>
-    <svg:g [attr.transform]="attrTransform" [style.transform]="styleTransform" [style.transition]="textTransition">
+    <svg:g
+      [attr.transform]="attrTransform"
+      [style.transform]="styleTransform"
+      [style.transition]="textTransition"
+      @toggleHide
+    >
       <svg:text
         class="pie-label"
         [class.animation]="animations"
@@ -37,6 +43,7 @@ export interface PieData extends DefaultArcObject {
       </svg:text>
     </svg:g>
     <svg:path
+      @toggleHide
       [attr.d]="line"
       [attr.stroke]="color"
       fill="none"
@@ -44,7 +51,23 @@ export interface PieData extends DefaultArcObject {
       [class.animation]="animations"
     ></svg:path>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleHide', [
+      transition(':leave', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms', style({ opacity: '0' }))
+      ]),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms 200ms', style({ opacity: '1' }))
+      ])
+    ])
+  ]
 })
 export class PieLabelComponent implements OnChanges {
   @Input() data: PieData;

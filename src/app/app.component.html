@@ -4,6 +4,7 @@
       <ngx-charts-bar-vertical
         *ngIf="chartType === 'bar-vertical'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -42,6 +43,7 @@
       <ngx-charts-bar-horizontal
         *ngIf="chartType === 'bar-horizontal'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -79,6 +81,7 @@
       <ngx-charts-bar-vertical-2d
         *ngIf="chartType === 'bar-vertical-2d'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -117,6 +120,7 @@
       <ngx-charts-bar-horizontal-2d
         *ngIf="chartType === 'bar-horizontal-2d'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -155,6 +159,7 @@
       <ngx-charts-bar-vertical-stacked
         *ngIf="chartType === 'bar-vertical-stacked'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -191,6 +196,7 @@
       <ngx-charts-bar-horizontal-stacked
         *ngIf="chartType === 'bar-horizontal-stacked'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -227,6 +233,7 @@
       <ngx-charts-bar-vertical-normalized
         *ngIf="chartType === 'bar-vertical-normalized'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -261,6 +268,7 @@
       <ngx-charts-bar-horizontal-normalized
         *ngIf="chartType === 'bar-horizontal-normalized'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -295,6 +303,7 @@
       <ngx-charts-pie-chart
         *ngIf="chartType === 'pie-chart'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [results]="single"
@@ -318,6 +327,7 @@
       <ngx-charts-advanced-pie-chart
         *ngIf="chartType === 'advanced-pie-chart'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [results]="single"
@@ -334,6 +344,7 @@
       <ngx-charts-pie-grid
         *ngIf="chartType === 'pie-grid'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [results]="single"
@@ -347,8 +358,9 @@
       </ngx-charts-pie-grid>
       <ngx-charts-line-chart
         *ngIf="chartType === 'line-chart'"
-        [view]="view"
         class="chart-container"
+        @queryChildAnimations
+        [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
         [results]="dateDataWithOrWithoutRange"
@@ -387,8 +399,9 @@
       </ngx-charts-line-chart>
       <ngx-charts-polar-chart
         *ngIf="chartType === 'polar-chart'"
-        [view]="view"
         class="chart-container"
+        @queryChildAnimations
+        [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
         [results]="multi"
@@ -419,8 +432,9 @@
       </ngx-charts-polar-chart>
       <ngx-charts-bubble-chart
         *ngIf="chartType === 'bubble-chart'"
-        [view]="view"
         class="chart-container"
+        @queryChildAnimations
+        [view]="view"
         [results]="bubble"
         [animations]="animations"
         [showGridLines]="showGridLines"
@@ -458,6 +472,7 @@
       <ngx-charts-area-chart
         *ngIf="chartType === 'area-chart'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -497,6 +512,7 @@
       <ngx-charts-area-chart-stacked
         *ngIf="chartType === 'area-chart-stacked'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -535,6 +551,7 @@
       <ngx-charts-area-chart-normalized
         *ngIf="chartType === 'area-chart-normalized'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
@@ -568,6 +585,7 @@
       <combo-chart-component
         *ngIf="chartType === 'combo-chart'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="comboBarScheme"
         [colorSchemeLine]="lineChartScheme"
@@ -600,6 +618,7 @@
       <ngx-charts-heat-map
         *ngIf="chartType === 'heat-map'"
         class="chart-container"
+        @queryChildAnimations
         [min]="heatmapMin"
         [max]="heatmapMax"
         [view]="view"
@@ -630,6 +649,7 @@
       <ngx-charts-heat-map
         *ngIf="chartType === 'calendar'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [results]="calendarData"
@@ -658,6 +678,7 @@
       <ngx-charts-tree-map
         *ngIf="chartType === 'tree-map'"
         class="chart-container"
+        @queryChildAnimations
         [view]="view"
         [scheme]="colorScheme"
         [results]="single"

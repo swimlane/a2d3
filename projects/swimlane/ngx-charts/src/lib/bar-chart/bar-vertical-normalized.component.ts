@@ -69,7 +69,6 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
         <svg:g *ngIf="!isSSR">
           <svg:g
             *ngFor="let group of results; trackBy: trackBy"
-            [@animationState]="'active'"
             [attr.transform]="groupTransform(group)"
           >
             <svg:g
@@ -121,18 +120,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
   `,
   styleUrls: ['../common/base-chart.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('animationState', [
-      transition(':leave', [
-        style({
-          opacity: 1,
-          transform: '*'
-        }),
-        animate(500, style({ opacity: 0, transform: 'scale(0)' }))
-      ])
-    ])
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarVerticalNormalizedComponent extends BaseChartComponent {
   @Input() legend: boolean = false;
@@ -185,6 +173,7 @@ export class BarVerticalNormalizedComponent extends BaseChartComponent {
   barChartType = BarChartType;
 
   ngOnInit() {
+    super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
       this.isSSR = true;
     }

@@ -1,16 +1,17 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  Input,
-  Output,
   EventEmitter,
+  Input,
   OnChanges,
-  ViewChild,
+  Output,
   SimpleChanges,
-  ChangeDetectionStrategy
+  ViewChild
 } from '@angular/core';
 import { YAxisTicksComponent } from './y-axis-ticks.component';
 import { Orientation } from '../types/orientation.enum';
 import { ViewDimensions } from '../types/view-dimension.interface';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'g[ngx-charts-y-axis]',
@@ -19,6 +20,7 @@ import { ViewDimensions } from '../types/view-dimension.interface';
       <svg:g
         ngx-charts-y-axis-ticks
         *ngIf="yScale"
+        @toggleHide
         [trimTicks]="trimTicks"
         [maxTickLength]="maxTickLength"
         [tickFormatting]="tickFormatting"
@@ -40,6 +42,7 @@ import { ViewDimensions } from '../types/view-dimension.interface';
       <svg:g
         ngx-charts-axis-label
         *ngIf="showLabel"
+        @toggleHide
         [label]="labelText"
         [offset]="labelOffset"
         [orient]="yOrient"
@@ -48,7 +51,23 @@ import { ViewDimensions } from '../types/view-dimension.interface';
       ></svg:g>
     </svg:g>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleHide', [
+      transition(':leave', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms', style({ opacity: '0' }))
+      ]),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms 300ms', style({ opacity: '1' }))
+      ])
+    ])
+  ]
 })
 export class YAxisComponent implements OnChanges {
   @Input() yScale;

@@ -1,16 +1,16 @@
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges,
   ChangeDetectionStrategy,
-  TemplateRef,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  Output,
   PLATFORM_ID,
-  Inject
+  TemplateRef
 } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
-import { formatLabel, escapeLabel } from '../common/label.helper';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { escapeLabel, formatLabel } from '../common/label.helper';
 import { DataItem, StringOrNumberOrDate } from '../models/chart-data.model';
 import { PlacementTypes } from '../common/tooltip/position';
 import { StyleTypes } from '../common/tooltip/style.type';
@@ -30,7 +30,6 @@ import { isPlatformServer } from '@angular/common';
       <svg:g
         ngx-charts-bar
         *ngFor="let bar of bars; trackBy: trackBy"
-        [@animationState]="'active'"
         [@.disabled]="!animations"
         [width]="bar.width"
         [height]="bar.height"
@@ -103,17 +102,7 @@ import { isPlatformServer } from '@angular/common';
       />
     </svg:g>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('animationState', [
-      transition(':leave', [
-        style({
-          opacity: 1
-        }),
-        animate(500, style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SeriesVerticalComponent implements OnChanges {
   @Input() dims: ViewDimensions;

@@ -10,6 +10,7 @@ import {
 import { TooltipService } from '../tooltip/tooltip.service';
 import { LegendOptions, LegendType, LegendPosition } from '../types/legend.model';
 import { ScaleType } from '../types/scale-type.enum';
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   providers: [TooltipService],
@@ -22,6 +23,7 @@ import { ScaleType } from '../types/scale-type.enum';
       <ngx-charts-scale-legend
         *ngIf="showLegend && legendType === LegendType.ScaleLegend"
         class="chart-legend"
+        @toggleAnimation
         [horizontal]="legendOptions && legendOptions.position === LegendPosition.Below"
         [valueRange]="legendOptions.domain"
         [colors]="legendOptions.colors"
@@ -32,6 +34,7 @@ import { ScaleType } from '../types/scale-type.enum';
       <ngx-charts-legend
         *ngIf="showLegend && legendType === LegendType.Legend"
         class="chart-legend"
+        @toggleAnimation
         [horizontal]="legendOptions && legendOptions.position === LegendPosition.Below"
         [data]="legendOptions.domain"
         [title]="legendOptions.title"
@@ -46,7 +49,23 @@ import { ScaleType } from '../types/scale-type.enum';
       </ngx-charts-legend>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('toggleAnimation', [
+      transition(':leave', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms', style({ opacity: '0' }))
+      ]),
+      transition(':enter', [
+        style({
+          opacity: '0'
+        }),
+        animate('500ms 300ms', style({ opacity: '1' }))
+      ])
+    ])
+  ]
 })
 export class ChartComponent implements OnChanges {
   @Input() view: [number, number];
