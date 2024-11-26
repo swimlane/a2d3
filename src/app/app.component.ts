@@ -22,6 +22,7 @@ import { BubbleChartInteractiveServerDataModel } from './custom-charts/bubble-ch
 import { data as countries } from 'emoji-flags';
 import chartGroups from './chartTypes';
 import { barChart, lineChartSeries } from './combo-chart-data';
+import { MultiSeries } from '@swimlane/ngx-charts/models/chart-data.model';
 import pkg from '../../projects/swimlane/ngx-charts/package.json';
 import { InputTypes } from '@swimlane/ngx-ui';
 import { LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
@@ -269,6 +270,16 @@ export class AppComponent implements OnInit {
   dimVisible: boolean = true;
   optsVisible: boolean = true;
 
+  // Custom double line chart
+  secondaryDateData: MultiSeries = [];
+  secondaryYAxisLabel = 'Temperature';
+  showSecondaryYAxisLabel = true;
+  showSecondaryYAxis = true;
+  secondaryYScaleMin: number = null;
+  secondaryYScaleMax: number = null;
+  maxSecondaryYAxisTickLength = 16;
+  trimSecondaryYAxisTicks = true;
+
   constructor(public location: Location) {
     this.mathFunction = this.getFunction();
 
@@ -293,6 +304,7 @@ export class AppComponent implements OnInit {
     this.bubbleDemoProcess(bubbleDemoData[0]);
 
     this.dateData = generateData(5, false);
+    this.secondaryDateData = generateData(2, false, 5, true);
     this.dateDataWithRange = generateData(2, true);
     this.setColorScheme('cool');
     this.calendarData = this.getCalendarData();
@@ -476,6 +488,14 @@ export class AppComponent implements OnInit {
       });
     }
     this.dateData = [...this.dateData];
+
+    for (const series of this.secondaryDateData) {
+      series.series.push({
+        name: date,
+        value: Math.floor(10 + Math.random() * 5)
+      });
+    }
+    this.secondaryDateData = [...this.secondaryDateData];
 
     this.dateDataWithRange = generateData(2, true);
 
