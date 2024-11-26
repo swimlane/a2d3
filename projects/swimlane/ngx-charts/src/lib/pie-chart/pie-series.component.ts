@@ -49,6 +49,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
         [data]="arc.data"
         [max]="max"
         [explodeSlices]="explodeSlices"
+        [explodeOnHover]="explodeOnHover"
         [isActive]="isActive(arc.data)"
         [animate]="animations"
         (select)="onClick($event)"
@@ -68,12 +69,13 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PieSeriesComponent implements OnChanges {
-  @Input() colors: ColorHelper;
+  @Input() colors;
   @Input() series: DataItem[] = [];
-  @Input() dims: ViewDimensions;
-  @Input() innerRadius: number = 60;
-  @Input() outerRadius: number = 80;
+  @Input() dims;
+  @Input() innerRadius = 60;
+  @Input() outerRadius = 80;
   @Input() explodeSlices: boolean;
+  @Input() explodeOnHover: boolean;
   @Input() showLabels: boolean;
   @Input() gradient: boolean;
   @Input() activeEntries: any[];

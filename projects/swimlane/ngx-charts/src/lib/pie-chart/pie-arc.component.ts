@@ -52,6 +52,7 @@ export class PieArcComponent implements OnChanges {
   @Input() animate: boolean = true;
   @Input() pointerEvents: boolean = true;
   @Input() isActive: boolean = false;
+  @Input() explodeOnHover: boolean;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
@@ -75,6 +76,12 @@ export class PieArcComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.update();
+    if (changes.isActive != null) {
+      this.isActive = changes.isActive.currentValue;
+      if (changes.isActive.previousValue != null && this.explodeOnHover) {
+        this.explodeAnimation();
+      }
+    }
   }
 
   getGradient(): string {
@@ -83,6 +90,24 @@ export class PieArcComponent implements OnChanges {
 
   getPointerEvents(): string {
     return this.pointerEvents ? 'auto' : 'none';
+  }
+
+  explodeAnimation() {
+    const node = select(this.element)
+      .selectAll('.arc')
+      .data([{ startAngle: this.startAngle, endAngle: this.endAngle }]);
+    if (this.isActive)
+      node
+        .transition()
+        .duration(300)
+        .attr(
+          'd',
+          arc()
+            .innerRadius(this.innerRadius)
+            .outerRadius(this.calculateOuterRadius() + this.calculateOuterRadius() * 0.25)
+            .cornerRadius(this.cornerRadius)
+        );
+    else node.transition().attr('d', this.calculateArc());
   }
 
   update(): void {
@@ -103,13 +128,16 @@ export class PieArcComponent implements OnChanges {
     }
   }
 
-  calculateArc(): any {
+  calculateOuterRadius(): number {
     let outerRadius = this.outerRadius;
     if (this.explodeSlices && this.innerRadius === 0) {
       outerRadius = (this.outerRadius * this.value) / this.max;
     }
+    return outerRadius;
+  }
 
-    return arc().innerRadius(this.innerRadius).outerRadius(outerRadius).cornerRadius(this.cornerRadius);
+  calculateArc(): any {
+    return arc().innerRadius(this.innerRadius).outerRadius(this.calculateOuterRadius()).cornerRadius(this.cornerRadius);
   }
 
   loadAnimation(): void {
