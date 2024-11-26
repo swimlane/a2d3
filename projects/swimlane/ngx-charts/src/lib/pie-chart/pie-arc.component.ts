@@ -71,6 +71,8 @@ export class PieArcComponent implements OnChanges {
 
   constructor(element: ElementRef) {
     this.element = element.nativeElement;
+    this.radialGradientId = 'linearGrad' + id().toString();
+    this.gradientFill = `url(#${this.radialGradientId})`;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -88,8 +90,6 @@ export class PieArcComponent implements OnChanges {
   update(): void {
     const calc = this.calculateArc();
     this.startOpacity = 0.5;
-    this.radialGradientId = 'linearGrad' + id().toString();
-    this.gradientFill = `url(#${this.radialGradientId})`;
 
     if (this.animate) {
       if (this.initialized) {
