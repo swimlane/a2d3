@@ -7,7 +7,8 @@ import {
   ChangeDetectionStrategy,
   TemplateRef,
   PLATFORM_ID,
-  Inject
+  Inject,
+  HostListener
 } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { createMouseEvent } from '../events';
@@ -158,12 +159,24 @@ export class TooltipArea {
     return results;
   }
 
-  mouseMove(event) {
+  @HostListener('touchmove', ['$event'])
+  onTouchMove(event): void {
+    this.mouseMove(event, true);
+  }
+
+  @HostListener('touchend')
+  onTouchEnd(): void {
+    this.hideTooltip();
+  }
+
+  mouseMove(event, isTouchMoveEvent = false) {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
-    const xPos = event.pageX - event.target.getBoundingClientRect().left;
+    const pageX = isTouchMoveEvent ? event.targetTouches[0].pageX : event.pageX;
+
+    const xPos = pageX - event.target.getBoundingClientRect().left;
 
     const closestIndex = this.findClosestPointIndex(xPos);
     const closestPoint = this.xSet[closestIndex];
