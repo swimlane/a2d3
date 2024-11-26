@@ -29,6 +29,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
       [view]="[width, height]"
       [showLegend]="legend"
       [legendOptions]="legendOptions"
+      [legendEntryTemplate]="legendEntryTemplate"
       [activeEntries]="activeEntries"
       [animations]="animations"
       (legendLabelClick)="onClick($event)"
@@ -200,6 +201,7 @@ export class AreaChartStackedComponent extends BaseChartComponent {
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
   @ContentChild('seriesTooltipTemplate') seriesTooltipTemplate: TemplateRef<any>;
+  @ContentChild('legendEntryTemplate') legendEntryTemplate: TemplateRef<any>;
 
   dims: ViewDimensions;
   scaleType: ScaleType;

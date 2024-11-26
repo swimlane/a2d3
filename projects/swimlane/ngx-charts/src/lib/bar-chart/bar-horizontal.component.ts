@@ -24,6 +24,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
       [view]="[width, height]"
       [showLegend]="legend"
       [legendOptions]="legendOptions"
+      [legendEntryTemplate]="legendEntryTemplate"
       [activeEntries]="activeEntries"
       [animations]="animations"
       (legendLabelClick)="onClick($event)"
@@ -128,6 +129,7 @@ export class BarHorizontalComponent extends BaseChartComponent {
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
+  @ContentChild('legendEntryTemplate') legendEntryTemplate: TemplateRef<any>;
 
   dims: ViewDimensions;
   yScale: any;

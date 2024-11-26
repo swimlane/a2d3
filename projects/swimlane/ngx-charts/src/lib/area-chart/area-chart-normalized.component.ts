@@ -31,6 +31,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
       [view]="[width, height]"
       [showLegend]="legend"
       [legendOptions]="legendOptions"
+      [legendEntryTemplate]="legendEntryTemplate"
       [activeEntries]="activeEntries"
       [animations]="animations"
       (legendLabelClick)="onClick($event)"
@@ -199,6 +200,7 @@ export class AreaChartNormalizedComponent extends BaseChartComponent {
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
   @ContentChild('seriesTooltipTemplate') seriesTooltipTemplate: TemplateRef<any>;
+  @ContentChild('legendEntryTemplate') legendEntryTemplate: TemplateRef<any>;
 
   dims: ViewDimensions;
   scaleType: ScaleType;

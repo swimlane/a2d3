@@ -23,6 +23,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
       [view]="[width, height]"
       [showLegend]="legend"
       [legendOptions]="legendOptions"
+      [legendEntryTemplate]="legendEntryTemplate"
       [activeEntries]="activeEntries"
       [animations]="animations"
       (legendLabelActivate)="onActivate($event, true)"
@@ -82,6 +83,7 @@ export class PieChartComponent extends BaseChartComponent {
   @Output() deactivate = new EventEmitter();
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
+  @ContentChild('legendEntryTemplate') legendEntryTemplate: TemplateRef<any>;
 
   translation: string;
   outerRadius: number;

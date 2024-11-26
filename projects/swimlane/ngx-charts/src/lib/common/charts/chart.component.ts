@@ -5,7 +5,8 @@ import {
   ChangeDetectionStrategy,
   EventEmitter,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  TemplateRef
 } from '@angular/core';
 import { TooltipService } from '../tooltip/tooltip.service';
 import { LegendOptions, LegendType, LegendPosition } from '../types/legend.model';
@@ -39,6 +40,7 @@ import { ScaleType } from '../types/scale-type.enum';
         [height]="view[1]"
         [width]="legendWidth"
         [activeEntries]="activeEntries"
+        [legendEntryTemplate]="legendEntryTemplate"
         (labelClick)="legendLabelClick.emit($event)"
         (labelActivate)="legendLabelActivate.emit($event)"
         (labelDeactivate)="legendLabelDeactivate.emit($event)"
@@ -55,6 +57,7 @@ export class ChartComponent implements OnChanges {
   @Input() legendType: LegendType;
   @Input() activeEntries: any[];
   @Input() animations: boolean = true;
+  @Input() legendEntryTemplate: TemplateRef<any>;
 
   @Output() legendLabelClick = new EventEmitter<string>();
   @Output() legendLabelActivate = new EventEmitter<{ name: string }>();
