@@ -43,6 +43,8 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
         [endAngle]="arc.endAngle"
         [innerRadius]="innerRadius"
         [outerRadius]="outerRadius"
+        [sliceBorderColor]="sliceBorderColor"
+        [sliceBorderWidth]="sliceBorderWidth"
         [fill]="color(arc)"
         [value]="arc.data.value"
         [gradient]="gradient"
@@ -84,6 +86,8 @@ export class PieSeriesComponent implements OnChanges {
   @Input() tooltipDisabled: boolean = false;
   @Input() tooltipTemplate: TemplateRef<any>;
   @Input() animations: boolean = true;
+  @Input() sliceBorderColor: string;
+  @Input() sliceBorderWidth: number;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
