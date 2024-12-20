@@ -1,5 +1,9 @@
 # Changelog
 
+## 21.1.2
+
+- Fix: Percent Gauge Chart: Ensures the circle mask ID is unique for each chart
+
 ## 21.1.1
 
 - Fix: Percent Gauge Chart: Fixes server-side-rendering

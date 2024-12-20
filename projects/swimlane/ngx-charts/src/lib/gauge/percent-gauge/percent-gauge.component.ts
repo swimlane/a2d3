@@ -5,6 +5,7 @@ import { calculateViewDimensions } from '../../common/view-dimensions.helper';
 import { ColorHelper } from '../../common/color.helper';
 import { ViewDimensions } from '../../common/types/view-dimension.interface';
 import { ScaleType } from '../../common/types/scale-type.enum';
+import { id } from '../../utils/id';
 
 @Component({
   selector: 'ngx-charts-percent-gauge',
@@ -12,7 +13,7 @@ import { ScaleType } from '../../common/types/scale-type.enum';
     <ngx-charts-chart [view]="[width, height]" [showLegend]="false" [animations]="animations">
       <svg:g class="percent-gauge chart" (click)="onClick()">
         <svg:g [attr.transform]="transform">
-          <mask id="circleMask">
+          <mask [attr.id]="circleMaskId">
             <circle
               [attr.r]="radius"
               [style.stroke-width]="radius / 5"
@@ -38,7 +39,7 @@ import { ScaleType } from '../../common/types/scale-type.enum';
             [style.stroke-dasharray]="dashes"
           />
 
-          <svg:g mask="url(#circleMask)">
+          <svg:g [attr.mask]="'url(#' + circleMaskId + ')'">
             <svg:g [attr.transform]="circleTransform">
               <svg:g *ngFor="let tic of ticks" [attr.transform]="tic.transform">
                 <rect
@@ -125,6 +126,7 @@ export class PercentGaugeComponent extends BaseChartComponent {
   targetRadius: number;
   targetTextTransform: string;
 
+  circleMaskId: string;
   circleTransform: string;
   ticks: any[] = [];
   ticHeight: number;
@@ -141,6 +143,8 @@ export class PercentGaugeComponent extends BaseChartComponent {
 
   update(): void {
     super.update();
+
+    this.circleMaskId = `circleMask${id()}`;
 
     this.margin = [...this.defaultMargin];
     if (this.showLabel) {
