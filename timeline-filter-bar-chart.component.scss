@@ -1,0 +1,23 @@
+.timeline-filter-bar-chart {
+  .timeline {
+    .brush-background {
+      fill: rgba(0, 0, 0, 0.05);
+    }
+
+    .brush {
+      .selection {
+        fill: rgba(0, 0, 0, 0.1);
+        stroke-width: 1px;
+        stroke: #888;
+      }
+
+      .handle {
+        fill-opacity: 0;
+      }
+    }
+
+    .embedded-chart {
+      opacity: 0.6;
+    }
+  }
+}
