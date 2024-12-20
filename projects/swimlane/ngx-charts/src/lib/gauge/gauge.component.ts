@@ -285,8 +285,8 @@ export class GaugeComponent extends BaseChartComponent implements AfterViewInit 
     }
     const { width } = this.textEl.nativeElement.getBoundingClientRect();
     const oldScale = this.resizeScale;
-
-    if (width === 0) {
+    console.log(1)
+    if (width === 0 || this.units == "" || this.units == undefined) {
       this.resizeScale = 1;
     } else {
       const availableSpace = this.textRadius;
