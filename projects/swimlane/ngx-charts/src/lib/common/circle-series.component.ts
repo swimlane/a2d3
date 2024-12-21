@@ -119,7 +119,7 @@ export class CircleSeriesComponent implements OnChanges, OnInit {
   @Input() yScale;
   @Input() colors: ColorHelper;
   @Input() scaleType: ScaleType;
-  @Input() visibleValue: boolean;
+  @Input() visibleValue: StringOrNumberOrDate;
   @Input() activeEntries: any[];
   @Input() tooltipDisabled: boolean = false;
   @Input() tooltipTemplate: TemplateRef<any>;
