@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
   inputTypes = InputTypes;
 
   theme = 'dark';
+  dir = 'ltr';
   chartType: string;
   chartGroups: any[];
   chart: any;
