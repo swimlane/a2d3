@@ -962,6 +962,45 @@
         >
         </ngx-charts-bubble-chart-interactive>
       </div>
+      <ngx-charts-bubble-chart-2d
+      *ngIf="chartType === 'bubble-chart-2d'"
+      [view]="view"
+      class="chart-container"
+      [results]="bubble2d"
+      [animations]="animations"
+      [showGridLines]="showGridLines"
+      [lineTransparency]="lineTransparency"
+      [legend]="showLegend"
+      [legendTitle]="legendTitle"
+      [legendPosition]="legendPosition"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale"
+      [xScaleMin]="xScaleMin"
+      [xScaleMax]="xScaleMax"
+      [yScaleMin]="yScaleMin"
+      [yScaleMax]="yScaleMax"
+      [scheme]="colorScheme"
+      [schemeType]="schemeType"
+      [roundDomains]="roundDomains"
+      [tooltipDisabled]="tooltipDisabled"
+      [minRadius]="minRadius"
+      [maxRadius]="maxRadius"
+      [trimXAxisTicks]="trimXAxisTicks"
+      [trimYAxisTicks]="trimYAxisTicks"
+      [rotateXAxisTicks]="rotateXAxisTicks"
+      [maxXAxisTickLength]="maxXAxisTickLength"
+      [maxYAxisTickLength]="maxYAxisTickLength"
+      [wrapTicks]="wrapTicks"
+      (activate)="activate($event)"
+      (deactivate)="deactivate($event)"
+      (select)="select($event)"
+    >
+    </ngx-charts-bubble-chart-2d>
       <ngx-charts-line-chart
         *ngIf="chartType === 'line-reference-lines'"
         [view]="view"
@@ -1172,6 +1211,7 @@
         <pre *ngIf="chart.inputFormat === 'boxMultiSeries'">{{ boxData | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'bubble'">{{ bubble | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'bubbleInteractive'">{{ bubbleDemoTempData | json }}</pre>
+        <pre *ngIf="chart.inputFormat === 'bubble2d'">{{ bubble2d | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ barChart | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ lineChartSeries | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'timelineFilter'">{{ timelineFilterBarData | json }}</pre>
@@ -1349,6 +1389,11 @@
             Wrap Ticks
           </label>
           <br />
+        </div>
+        <div *ngIf="chart.options.includes('lineTransparency')" style="display: flex; align-items: center;">
+          <label>Line Transparency:</label>
+          <input type="range" min="0" max="100" [(ngModel)]="lineTransparency" />
+          {{ lineTransparency }}<br /> 
         </div>
         <div *ngIf="chart.options.includes('legendTitle')">
           <label>Legend Title:</label><br />

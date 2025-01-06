@@ -10,6 +10,7 @@ import {
   multi,
   boxData,
   bubble,
+  bubble2d,
   sankeyData,
   generateData,
   generateGraph,
@@ -73,6 +74,7 @@ export class AppComponent implements OnInit {
   timelineFilterBarData: any[];
   graph: { links: any[]; nodes: any[] };
   bubble: any;
+  bubble2d: any;
   linearScale: boolean = false;
   range: boolean = false;
 
@@ -87,6 +89,7 @@ export class AppComponent implements OnInit {
   gradient = false;
   showLegend = true;
   legendTitle = 'Legend';
+  lineTransparency = 0;
   legendPosition = LegendPosition.Right;
   showXAxisLabel = true;
   tooltipDisabled = false;
@@ -283,6 +286,7 @@ export class AppComponent implements OnInit {
       graph: generateGraph(50),
       boxData,
       bubble,
+      bubble2d,
       plotData: this.generatePlotData(),
       treemap,
       bubbleDemoData,

@@ -181,6 +181,49 @@ export class BubbleSeriesComponent implements OnChanges, OnInit {
             isActive,
             transform: `translate(${cx},${cy})`
           };
+        } else {
+          const y = this.data.name;
+          const x = d.x;
+          const r = d.r;
+
+          const radius = this.rScale(r || 1);
+          const tooltipLabel = formatLabel(this.data.name);
+
+          const cx = this.xScaleType === ScaleType.Linear ? this.xScale(Number(x)) : this.xScale(x);
+          const cy = this.yScaleType === ScaleType.Linear ? this.yScale(Number(y)) : this.yScale(y);
+
+          const color =
+            this.colors.scaleType === ScaleType.Linear ? this.colors.getColor(r) : this.colors.getColor(seriesName);
+
+          const isActive = !this.activeEntries.length ? true : this.isActive({ name: seriesName });
+          const opacity = isActive ? 1 : 0.3;
+
+          const data = Object.assign({}, d, {
+            series: seriesName,
+            name: this.data.name,
+            value: this.data.name,
+            x: d.x,
+            radius: d.r
+          });
+
+          return {
+            data,
+            x,
+            y,
+            r,
+            classNames: [`circle-data-${i}`],
+            value: y,
+            label: x,
+            cx,
+            cy,
+            radius,
+            tooltipLabel,
+            color,
+            opacity,
+            seriesName,
+            isActive,
+            transform: `translate(${cx},${cy})`
+          };
         }
       })
       .filter(circle => circle !== undefined);
@@ -198,7 +241,9 @@ export class BubbleSeriesComponent implements OnChanges, OnInit {
     const y = formatLabel(circle.y);
     const name =
       hasSeriesName && hasTooltipLabel
-        ? `${circle.seriesName} • ${circle.tooltipLabel}`
+        ? circle.seriesName === circle.tooltipLabel
+          ? circle.seriesName
+          : `${circle.seriesName} • ${circle.tooltipLabel}`
         : circle.seriesName + circle.tooltipLabel;
     const tooltipTitle =
       hasSeriesName || hasTooltipLabel ? `<span class="tooltip-label">${escapeLabel(name)}</span>` : '';

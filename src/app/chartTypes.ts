@@ -788,6 +788,46 @@ const chartGroups = [
         }
       },
       {
+        name: 'Bubble Chart 2D',
+        selector: 'bubble-chart-2d',
+        inputFormat: 'bubble2d',
+        options: [
+          'animations',
+          'colorScheme',
+          'schemeType',
+          'showXAxis',
+          'showYAxis',
+          'showLegend',
+          'lineTransparency',
+          'legendTitle',
+          'legendPosition',
+          'showXAxisLabel',
+          'xAxisLabel',
+          'showYAxisLabel',
+          'yAxisLabel',
+          'showGridLines',
+          'roundDomains',
+          'autoScale',
+          'minRadius',
+          'maxRadius',
+          'tooltipDisabled',
+          'xScaleMin',
+          'xScaleMax',
+          'yScaleMin',
+          'yScaleMax',
+          'trimXAxisTicks',
+          'trimYAxisTicks',
+          'rotateXAxisTicks',
+          'maxXAxisTickLength',
+          'maxYAxisTickLength',
+          'wrapTicks'
+        ],
+        defaults: {
+          xAxisLabel: 'Census Date',
+          yAxisLabel: 'Country'
+        }
+      },
+      {
         name: 'Equation Plots',
         selector: 'plot-demo',
         inputFormat: 'statusData',
