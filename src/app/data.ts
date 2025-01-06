@@ -437,7 +437,30 @@ export function timelineFilterBarData(): SingleSeries {
   if (!results.some(r => r.value === 0)) {
     results[Math.floor(Math.random() * results.length)].value = 0;
   }
+  return results;
+}
 
+export function calendarPieData(): any[] {
+  const results: any[] = [];
+  const dataPoints = 30;
+  const dayLength = 24 * 60 * 60 * 1000;
+  let date = (new Date("November 1, 2023")).valueOf();
+  for (let j = 0; j < dataPoints; j++) {
+    const countries = ['Germany', 'United States', 'France', 'United Kingdom', 'Spain', 'Italy'];
+    const series = [];
+    for (let country of countries) {
+      series.push({
+        name: country,
+        value: Math.floor(Math.random() * 50000)
+      })
+    }
+
+    results.push({
+      name: new Date(date),
+      series: series
+    });
+    date += dayLength;
+  }
   return results;
 }
 

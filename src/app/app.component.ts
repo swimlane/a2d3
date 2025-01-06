@@ -15,6 +15,7 @@ import {
   generateGraph,
   treemap,
   timelineFilterBarData,
+  calendarPieData,
   fiscalYearReport
 } from './data';
 import { bubbleDemoData } from './custom-charts/bubble-chart-interactive/data';
@@ -215,6 +216,10 @@ export class AppComponent implements OnInit {
   heatmapMin: number = 0;
   heatmapMax: number = 50000;
 
+  // Calendar Pie Chart
+  calendarPieData: any[];
+  startSunday: boolean = true;
+
   // Combo Chart
   barChart: any[] = barChart;
   lineChartSeries: any[] = lineChartSeries;
@@ -301,6 +306,7 @@ export class AppComponent implements OnInit {
     this.statusData = this.getStatusData();
     this.sparklineData = generateData(1, false, 30);
     this.timelineFilterBarData = timelineFilterBarData();
+    this.calendarPieData = calendarPieData();
   }
 
   get dateDataWithOrWithoutRange() {

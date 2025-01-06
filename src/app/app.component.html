@@ -627,6 +627,30 @@
         (deactivate)="deactivate($event)"
       >
       </ngx-charts-heat-map>
+      <ngx-charts-calendar-pie
+        *ngIf="chartType === 'calendar-pie'"
+        class="chart-container"
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="calendarPieData"
+        [animations]="animations"
+        [legend]="showLegend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [xAxis]="showXAxis"
+        [innerPadding]="innerPadding"
+        [tooltipDisabled]="tooltipDisabled"
+        [trimXAxisTicks]="trimXAxisTicks"
+        [rotateXAxisTicks]="rotateXAxisTicks"
+        [maxXAxisTickLength]="maxXAxisTickLength"
+        [wrapTicks]="wrapTicks"
+        [customColors]="customColors"
+        [startSunday]="startSunday"
+        (select)="select($event)"
+        (activate)="activate($event)"
+        (deactivate)="deactivate($event)"
+      >
+      </ngx-charts-calendar-pie>
       <ngx-charts-heat-map
         *ngIf="chartType === 'calendar'"
         class="chart-container"
@@ -1175,6 +1199,7 @@
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ barChart | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ lineChartSeries | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'timelineFilter'">{{ timelineFilterBarData | json }}</pre>
+        <pre *ngIf="chart.inputFormat === 'calendarChart'">{{ calendarPieData | json }}</pre>
         <div>
           <label>
             <input type="checkbox" [(ngModel)]="realTimeData" />
@@ -1425,6 +1450,12 @@
         <div *ngIf="chart.options.includes('maxYAxisTickLength')">
           <label>Max Y Axis Tick Length:</label><br />
           <input type="text" [(ngModel)]="maxYAxisTickLength" /><br />
+        </div>
+        <div *ngIf="chart.options.includes('startSunday')">
+          <label>
+            <input type="checkbox" [(ngModel)]="startSunday" />
+            Start Sunday
+          </label>
         </div>
         <div *ngIf="chart.options.includes('doughnut')">
           <label>

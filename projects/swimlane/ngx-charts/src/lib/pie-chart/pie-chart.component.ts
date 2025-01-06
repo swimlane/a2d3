@@ -17,43 +17,87 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { ScaleType } from '../common/types/scale-type.enum';
 
 @Component({
-  selector: 'ngx-charts-pie-chart',
+  selector: 'g[ngx-charts-pie-chart], ngx-charts-pie-chart',
   template: `
-    <ngx-charts-chart
-      [view]="[width, height]"
-      [showLegend]="legend"
-      [legendOptions]="legendOptions"
-      [activeEntries]="activeEntries"
-      [animations]="animations"
-      (legendLabelActivate)="onActivate($event, true)"
-      (legendLabelDeactivate)="onDeactivate($event, true)"
-      (legendLabelClick)="onClick($event)"
-    >
-      <svg:g [attr.transform]="translation" class="pie-chart chart">
-        <svg:g
-          ngx-charts-pie-series
-          [colors]="colors"
-          [series]="data"
-          [showLabels]="labels"
-          [labelFormatting]="labelFormatting"
-          [trimLabels]="trimLabels"
-          [maxLabelLength]="maxLabelLength"
-          [activeEntries]="activeEntries"
-          [innerRadius]="innerRadius"
-          [outerRadius]="outerRadius"
-          [explodeSlices]="explodeSlices"
-          [gradient]="gradient"
-          [animations]="animations"
-          [tooltipDisabled]="tooltipDisabled"
-          [tooltipTemplate]="tooltipTemplate"
-          [tooltipText]="tooltipText"
-          (dblclick)="dblclick.emit($event)"
-          (select)="onClick($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)"
-        />
+    <svg:g *ngIf="calendar">
+      <svg:g
+        ngx-charts-chart
+        [view]="[width, height]"
+        [showLegend]="legend"
+        [legendOptions]="legendOptions"
+        [activeEntries]="activeEntries"
+        [animations]="animations"
+        [chartsRef]="chartsContent"
+        [calendar]="calendar"
+        (legendLabelActivate)="onActivate($event, true)"
+        (legendLabelDeactivate)="onDeactivate($event, true)"
+        (legendLabelClick)="onClick($event)"
+      >
+        <ng-template #chartsContent>
+          <svg:g [attr.transform]="translation" class="pie-chart chart">
+            <svg:g
+              ngx-charts-pie-series
+              [colors]="colors"
+              [series]="data"
+              [showLabels]="labels"
+              [labelFormatting]="labelFormatting"
+              [trimLabels]="trimLabels"
+              [maxLabelLength]="maxLabelLength"
+              [activeEntries]="activeEntries"
+              [innerRadius]="innerRadius"
+              [outerRadius]="outerRadius"
+              [explodeSlices]="explodeSlices"
+              [gradient]="gradient"
+              [animations]="animations"
+              [tooltipDisabled]="tooltipDisabled"
+              [tooltipTemplate]="tooltipTemplate"
+              [tooltipText]="tooltipText"
+              (dblclick)="dblclick.emit($event)"
+              (select)="onClick($event)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            />
+          </svg:g>
+        </ng-template>
       </svg:g>
-    </ngx-charts-chart>
+    </svg:g>
+    <div *ngIf="!calendar">
+      <ngx-charts-chart
+        [view]="[width, height]"
+        [showLegend]="legend"
+        [legendOptions]="legendOptions"
+        [activeEntries]="activeEntries"
+        [animations]="animations"
+        (legendLabelActivate)="onActivate($event, true)"
+        (legendLabelDeactivate)="onDeactivate($event, true)"
+        (legendLabelClick)="onClick($event)"
+      >
+        <svg:g [attr.transform]="translation" class="pie-chart chart">
+          <svg:g
+            ngx-charts-pie-series
+            [colors]="colors"
+            [series]="data"
+            [showLabels]="labels"
+            [labelFormatting]="labelFormatting"
+            [trimLabels]="trimLabels"
+            [maxLabelLength]="maxLabelLength"
+            [activeEntries]="activeEntries"
+            [innerRadius]="innerRadius"
+            [outerRadius]="outerRadius"
+            [explodeSlices]="explodeSlices"
+            [gradient]="gradient"
+            [animations]="animations"
+            [tooltipDisabled]="tooltipDisabled"
+            [tooltipTemplate]="tooltipTemplate"
+            [tooltipText]="tooltipText"
+            (dblclick)="dblclick.emit($event)"
+            (select)="onClick($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)"
+          />
+        </svg:g>
+      </ngx-charts-chart>
+    </div>
   `,
   styleUrls: ['../common/base-chart.component.scss', './pie-chart.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -77,6 +121,8 @@ export class PieChartComponent extends BaseChartComponent {
   @Output() dblclick = new EventEmitter();
   // optional margins
   @Input() margins: number[];
+  @Input() calendar: boolean = false;
+
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
   @Output() deactivate = new EventEmitter();

@@ -644,6 +644,30 @@ const chartGroups = [
         }
       },
       {
+        name: 'Calendar Pie',
+        selector: 'calendar-pie',
+        inputFormat: 'calendarChart',
+        options: [
+          'animations',
+          'colorScheme',
+          'showXAxis',
+          'showLegend',
+          'legendTitle',
+          'legendPosition',
+          'innerPadding',
+          'tooltipDisabled',
+          'trimXAxisTicks',
+          'rotateXAxisTicks',
+          'maxXAxisTickLength',
+          'wrapTicks',
+          'startSunday'
+        ],
+        defaults: {
+          width: 800,
+          height: 500
+        }
+      },
+      {
         name: 'Tree Map',
         selector: 'tree-map',
         inputFormat: 'singleSeries',

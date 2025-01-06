@@ -5,7 +5,8 @@ import {
   ChangeDetectionStrategy,
   EventEmitter,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  TemplateRef
 } from '@angular/core';
 import { TooltipService } from '../tooltip/tooltip.service';
 import { LegendOptions, LegendType, LegendPosition } from '../types/legend.model';
@@ -13,9 +14,9 @@ import { ScaleType } from '../types/scale-type.enum';
 
 @Component({
   providers: [TooltipService],
-  selector: 'ngx-charts-chart',
+  selector: 'g[ngx-charts-chart], ngx-charts-chart',
   template: `
-    <div class="ngx-charts-outer" [style.width.px]="view[0]" [style.height.px]="view[1]">
+    <div *ngIf="!calendar" class="ngx-charts-outer" [style.width.px]="view[0]" [style.height.px]="view[1]">
       <svg class="ngx-charts" [attr.width]="chartWidth" [attr.height]="view[1]">
         <ng-content></ng-content>
       </svg>
@@ -45,6 +46,12 @@ import { ScaleType } from '../types/scale-type.enum';
       >
       </ngx-charts-legend>
     </div>
+    <svg:g *ngIf="calendar">
+      <ng-container 
+        [ngTemplateOutlet]="chartsRef"
+      >
+      </ng-container>
+    </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -55,6 +62,8 @@ export class ChartComponent implements OnChanges {
   @Input() legendType: LegendType;
   @Input() activeEntries: any[];
   @Input() animations: boolean = true;
+  @Input() calendar: boolean = false;
+  @Input() chartsRef: TemplateRef<any>;
 
   @Output() legendLabelClick = new EventEmitter<string>();
   @Output() legendLabelActivate = new EventEmitter<{ name: string }>();
