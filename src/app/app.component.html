@@ -16,6 +16,7 @@
         [legend]="showLegend"
         [legendTitle]="legendTitle"
         [legendPosition]="legendPosition"
+        [dataLabelPosition]="dataLabelPosition"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
         [tooltipDisabled]="tooltipDisabled"
@@ -53,6 +54,7 @@
         [legend]="showLegend"
         [legendTitle]="legendTitle"
         [legendPosition]="legendPosition"
+        [dataLabelPosition]="dataLabelPosition"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
         [tooltipDisabled]="tooltipDisabled"
@@ -1359,6 +1361,13 @@
           <select style="margin-left: 10px" [(ngModel)]="legendPosition">
             <option value="right">Right</option>
             <option value="below">Below</option></select
+          ><br />
+        </div>
+        <div *ngIf="chart.options.includes('dataLabelPosition')">
+          <label>Data Label Position:</label><br />
+          <select style="margin-left: 10px" [(ngModel)]="dataLabelPosition">
+            <option value="inside">Inside Bar</option>
+            <option value="outside">Outside Bar</option></select
           ><br />
         </div>
         <div *ngIf="chart.options.includes('tooltipDisabled')">

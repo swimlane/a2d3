@@ -97,6 +97,7 @@ import { isPlatformServer } from '@angular/common';
         [barWidth]="b.width"
         [barHeight]="b.height"
         [value]="b.total"
+        [dataLabelPosition]="dataLabelPosition"
         [valueFormatting]="dataLabelFormatting"
         [orientation]="barOrientation.Vertical"
         (dimensionsChanged)="dataLabelHeightChanged.emit({ size: $event, index: i })"
@@ -132,6 +133,7 @@ export class SeriesVerticalComponent implements OnChanges {
   @Input() showDataLabel: boolean = false;
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
+  @Input() dataLabelPosition: string;
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();
   @Output() activate = new EventEmitter();

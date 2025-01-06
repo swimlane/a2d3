@@ -76,6 +76,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
           [tooltipTemplate]="tooltipTemplate"
           [showDataLabel]="showDataLabel"
           [dataLabelFormatting]="dataLabelFormatting"
+          [dataLabelPosition]="dataLabelPosition"
           [activeEntries]="activeEntries"
           [roundEdges]="roundEdges"
           [animations]="animations"
@@ -125,6 +126,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
   @Input() wrapTicks = false;
+  @Input() dataLabelPosition: string;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
