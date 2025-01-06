@@ -96,6 +96,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() legend = false;
   @Input() legendTitle: string = 'Legend';
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
+  @Input() lineType: string = 'straight';
   @Input() xAxis;
   @Input() yAxis;
   @Input() showXAxisLabel: boolean;
@@ -177,6 +178,7 @@ export class BarVerticalComponent extends BaseChartComponent {
 
     this.setColors();
     this.legendOptions = this.getLegendOptions();
+    this.lineType = this.getLineType();
 
     this.transform = `translate(${this.dims.xOffset} , ${this.margin[0] + this.dataLabelMaxHeight.negative})`;
   }
@@ -244,6 +246,10 @@ export class BarVerticalComponent extends BaseChartComponent {
       opts.colors = this.colors.scale;
     }
     return opts;
+  }
+
+  getLineType() {
+    return this.lineType;
   }
 
   updateYAxisWidth({ width }): void {

@@ -88,6 +88,8 @@ export class AppComponent implements OnInit {
   showLegend = true;
   legendTitle = 'Legend';
   legendPosition = LegendPosition.Right;
+  lineType = 'straight';
+  lineStyle = '';
   showXAxisLabel = true;
   tooltipDisabled = false;
   showText = true;
@@ -229,7 +231,7 @@ export class AppComponent implements OnInit {
     name: 'singleLightBlue',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#01579b']
+    domain: ['#01579b'],
   };
 
   showRightYAxisLabel: boolean = true;
@@ -508,6 +510,8 @@ export class AppComponent implements OnInit {
     this.linearScale = false;
     this.yAxisLabel = 'GDP Per Capita';
     this.xAxisLabel = 'Country';
+    this.lineType = 'straight';
+    this.lineStyle = '';
 
     this.width = 700;
     this.height = 300;

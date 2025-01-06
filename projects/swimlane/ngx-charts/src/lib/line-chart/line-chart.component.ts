@@ -96,6 +96,7 @@ import { isPlatformServer } from '@angular/common';
                 [rangeFillOpacity]="rangeFillOpacity"
                 [hasRange]="hasRange"
                 [animations]="animations"
+                [style]="getLineStyle()"
               />
             </svg:g>
           </svg:g>
@@ -202,6 +203,8 @@ import { isPlatformServer } from '@angular/common';
 export class LineChartComponent extends BaseChartComponent implements OnInit {
   @Input() legend: boolean;
   @Input() legendTitle: string = 'Legend';
+  @Input() lineType: string = 'straight';
+  @Input() lineStyle: string = '';
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis: boolean;
   @Input() yAxis: boolean;
@@ -457,6 +460,22 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
 
   trackBy(index: number, item): string {
     return `${item.name}`;
+  }
+
+  getLineStyle() {
+    if (this.lineType === 'dash') {
+      return { 'stroke-dasharray': '5,5' };
+    } else if (this.lineType === 'dash-dot') {
+      return { 'stroke-dasharray': '1,3,5,3' };
+    } else if (this.lineType === 'dot') {
+      return { 'stroke-dasharray': '2,5' };
+    } else if (this.lineType === 'dash-dot2') {
+      return { 'stroke-dasharray': '1,3,1,3,5,3' };
+    }else if (this.lineType === 'customize') {
+      return { 'stroke-dasharray': this.lineStyle };
+    } else {
+      return {};
+    }
   }
 
   setColors(): void {

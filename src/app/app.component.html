@@ -356,6 +356,8 @@
         [legend]="showLegend"
         [legendTitle]="legendTitle"
         [legendPosition]="legendPosition"
+        [lineType]="lineType"
+        [lineStyle]="lineStyle"
         [gradient]="gradient"
         [xAxis]="showXAxis"
         [yAxis]="showYAxis"
@@ -585,6 +587,8 @@
         [legend]="showLegend"
         [legendTitle]="legendTitle"
         [legendPosition]="legendPosition"
+        [lineType]="lineType"
+        [lineStyle]="lineStyle"
         [showGridLines]="showGridLines"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
@@ -839,6 +843,8 @@
           [legend]="false"
           [legendTitle]="legendTitle"
           [legendPosition]="legendPosition"
+          [lineType]="lineType"
+          [lineStyle]="lineStyle"
           [gradient]="gradient"
           [xAxis]="showXAxis"
           [yAxis]="showYAxis"
@@ -973,6 +979,8 @@
         [legend]="showLegend"
         [legendTitle]="legendTitle"
         [legendPosition]="legendPosition"
+        [lineType]="lineType"
+        [lineStyle]="lineStyle"
         [gradient]="gradient"
         [xAxis]="showXAxis"
         [yAxis]="showYAxis"
@@ -1350,9 +1358,27 @@
           </label>
           <br />
         </div>
+        <div *ngIf="chart.options.includes('lineType')">
+          <label>Line Type:</label><br />
+          <select style="margin-left: 10px" [(ngModel)]="lineType">
+            <option value="straight">Straight line</option>
+            <option value="dash">Dash line</option>
+            <option value="dot">Dot line</option>
+            <option value="dash-dot">Dash-dot1 line</option>
+            <option value="dash-dot2">Dash-dot2 line</option>
+            <option value="customize">Customized line</option>
+          </select><br />
+        </div>
+        <div *ngIf="lineType === 'customize'">
+          <label>Line Style:</label>
+          <form #form="ngForm">
+            <input style="margin-left: 10px" type="text" [(ngModel)]="lineStyle" name="lineStyle" #lineStyleCtrl="ngModel" pattern="^(\d+,)*\d+,*$" placeholder="For example: 5,5"/>
+            <div *ngIf="lineStyleCtrl.errors?.pattern" style="color: red;">Invalid input. Please enter numbers separated by commas.</div>
+          </form>
+        </div>
         <div *ngIf="chart.options.includes('legendTitle')">
           <label>Legend Title:</label><br />
-          <input type="text" [(ngModel)]="legendTitle" /><br />
+          <input type="number" [(ngModel)]="legendTitle" /><br />
         </div>
         <div *ngIf="chart.options.includes('legendPosition')">
           <label>Legend Position:</label><br />

@@ -1,7 +1,7 @@
 <ngx-charts-chart
   [view]="[width + legendSpacing, height]"
   [showLegend]="legend"
-  [legendOptions]="legendOptions"
+[legendOptions]="legendOptions"
   [activeEntries]="activeEntries"
   [animations]="animations"
   (legendLabelClick)="onClick($event)"
@@ -79,6 +79,7 @@
           [curve]="curve"
           [rangeFillOpacity]="rangeFillOpacity"
           [animations]="animations"
+          [style]="getLineStyle()"
         />
       </svg:g>
 

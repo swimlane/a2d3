@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { area, line } from 'd3-shape';
+import { area, line, curveLinear } from 'd3-shape';
 
 import { id } from '../utils/id';
 import { sortLinear, sortByTime, sortByDomain } from '../utils/sort';
@@ -73,6 +73,7 @@ export class LineSeriesComponent implements OnChanges {
   @Input() rangeFillOpacity: number;
   @Input() hasRange: boolean;
   @Input() animations: boolean = true;
+  @Input() lineType: string = 'straight';
 
   path: string;
   outerPath: string;
@@ -120,7 +121,7 @@ export class LineSeriesComponent implements OnChanges {
   }
 
   getLineGenerator(): any {
-    return line<any>()
+    let lineGenerator = line<any>()
       .x(d => {
         const label = d.name;
         let value;
@@ -135,6 +136,15 @@ export class LineSeriesComponent implements OnChanges {
       })
       .y(d => this.yScale(d.value))
       .curve(this.curve);
+
+    if (this.lineType === 'dot') {
+      lineGenerator = lineGenerator
+        .defined(d => d != null)
+        .defined(d => this.yScale(d.value) != null)
+        .curve(curveLinear);
+    }
+
+    return lineGenerator;
   }
 
   getRangeGenerator(): any {
