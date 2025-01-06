@@ -21,7 +21,9 @@ function isViewContainerRef(x: any): x is ViewContainerRef {
  *
  * @export
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class InjectionService {
   static globalRootViewContainer: ViewContainerRef = null;
 
