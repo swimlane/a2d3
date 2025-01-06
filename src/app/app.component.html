@@ -371,6 +371,7 @@
         [timeline]="timeline"
         [showGridLines]="showGridLines"
         [curve]="curve"
+        [tension]="tension"
         [rangeFillOpacity]="rangeFillOpacity"
         [roundDomains]="roundDomains"
         [tooltipDisabled]="tooltipDisabled"
@@ -594,6 +595,8 @@
         [yAxisLabelRight]="yAxisLabelRight"
         [noBarWhenZero]="noBarWhenZero"
         [wrapTicks]="wrapTicks"
+        [curve]="curve"
+        [tension]="tension"
         (select)="onSelect($event)"
       >
       </combo-chart-component>
@@ -1465,6 +1468,11 @@
               {{ interpolationType }}
             </option>
           </select>
+          <div *ngIf="isTensionSliderRequired(curveType)">
+            <label for="tensionSlider">Degree of Curvature:</label>
+            <input id="tensionSlider" type="range" min="0" max="1" step="0.01" [(ngModel)]="tension">
+            <span>{{ tension }}</span>
+          </div>
         </div>
         <div *ngIf="chart.options.includes('curveClosed')">
           <label>Line Interpolation</label>

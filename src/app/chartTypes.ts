@@ -350,6 +350,7 @@ const chartGroups = [
           'timeline',
           'showGridLines',
           'curve',
+          'tension',
           'rangeFillOpacity',
           'roundDomains',
           'tooltipDisabled',
@@ -714,7 +715,9 @@ const chartGroups = [
           'yAxisLabel',
           'showGridLines',
           'roundDomains',
-          'tooltipDisabled'
+          'tooltipDisabled',
+          'curve',
+          'tension'
         ]
       },
       {
