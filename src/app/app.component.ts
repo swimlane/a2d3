@@ -164,16 +164,24 @@ export class AppComponent implements OnInit {
   colorSets: any;
   colorScheme: any;
   schemeType = ScaleType.Ordinal;
+  linearScaleType = ScaleType.Linear;
   selectedColorScheme: string;
   rangeFillOpacity: number = 0.15;
 
   // Override colors for certain values
-  customColors: any[] = [
+  customColors: any[];
+
+  customColorsNonlinear: any[] = [
     {
       name: 'Germany',
       value: '#a8385d'
     }
   ];
+  
+  customColorsLinear: any[];
+
+  useCustomColors: boolean = false;
+  gradientStops: string = "#0000ff, #ff0000, #0000ff";
 
   // pie
   showLabels = true;
@@ -297,6 +305,7 @@ export class AppComponent implements OnInit {
     this.dateData = generateData(5, false);
     this.dateDataWithRange = generateData(2, true);
     this.setColorScheme('cool');
+    this.setSchemeType(ScaleType.Ordinal);
     this.calendarData = this.getCalendarData();
     this.statusData = this.getStatusData();
     this.sparklineData = generateData(1, false, 30);
@@ -517,6 +526,8 @@ export class AppComponent implements OnInit {
     if (!this.fitContainer) {
       this.applyDimensions();
     }
+
+    this.setSchemeType(this.schemeType);
   }
 
   changeTheme(theme: string) {
@@ -547,6 +558,31 @@ export class AppComponent implements OnInit {
   setColorScheme(name) {
     this.selectedColorScheme = name;
     this.colorScheme = this.colorSets.find(s => s.name === name);
+  }
+
+  setSchemeType(name) {
+    this.schemeType = name;
+    if (this.schemeType == ScaleType.Linear) {
+      this.customColors = this.customColorsLinear;
+    }
+    else {
+      this.customColors = this.customColorsNonlinear;
+    }
+  }
+
+  setCustomColor() {
+    this.customColorsLinear = this.gradientStops.split(',');
+    this.customColors = this.customColorsLinear;
+  }
+
+  resetCustomColor() {
+    if (this.useCustomColors) {
+      this.setCustomColor();
+    }
+    else {
+      this.customColorsLinear = undefined;
+      this.customColors = undefined;
+    }
   }
 
   onLegendLabelClick(entry) {

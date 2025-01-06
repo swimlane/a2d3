@@ -27,10 +27,18 @@ export class ColorHelper {
         return cs.name === scheme;
       });
     }
-    this.colorDomain = scheme.domain;
+    
+    this.customColors = customColors;
+
+    if (this.customColors) {
+      this.colorDomain = this.customColors;
+    }
+    else {
+      this.colorDomain = scheme.domain;
+    }
+
     this.scaleType = type;
     this.domain = domain;
-    this.customColors = customColors;
 
     this.scale = this.generateColorScheme(scheme, type, this.domain);
   }
@@ -56,16 +64,25 @@ export class ColorHelper {
         break;
       case ScaleType.Linear:
         {
-          const colorDomain = [...scheme.domain];
-          if (colorDomain.length === 1) {
-            colorDomain.push(colorDomain[0]);
-            this.colorDomain = colorDomain;
-          }
+          if (this.customColors) {
+            const colorDomain = [...this.customColors];
+            colorScale = scaleLinear()
+              .range(colorDomain as any)
+              .domain(range(0, 1, 0.9999 / (colorDomain.length - 1)));
+          } 
+          else {
+            const colorDomain = [...scheme.domain];
 
-          const points = range(0, 1, 1.0 / colorDomain.length);
-          colorScale = scaleLinear()
-            .range(colorDomain as any)
-            .domain(points);
+            if (colorDomain.length === 1) {
+              colorDomain.push(colorDomain[0]);
+              this.colorDomain = colorDomain;
+            }
+
+            const points = range(0, 1, 0.9999 / (colorDomain.length - 1));
+            colorScale = scaleLinear()
+              .range(colorDomain as any)
+              .domain(points);
+          }
         }
         break;
       default:
@@ -114,7 +131,7 @@ export class ColorHelper {
       .domain(this.domain as number[])
       .range([0, 1]);
 
-    const colorValueScale = scaleBand().domain(this.colorDomain).range([0, 1]);
+    const colorValueScale = scaleBand().domain(this.colorDomain.slice(1)).range([0, 1]);
 
     const endColor = this.getColor(value);
 
@@ -134,16 +151,17 @@ export class ColorHelper {
       opacity: 1
     });
 
-    while (currentVal < endVal && i < this.colorDomain.length) {
+    while (i < this.colorDomain.length) {
       const color = this.colorDomain[i];
-      const offset = colorValueScale(color);
+      const offset = colorValueScale(color) + colorValueScale.bandwidth();
+
+      if (offset >= endVal) {
+        break;
+      }
+
       if (offset <= startVal) {
         i++;
         continue;
-      }
-
-      if (offset.toFixed(4) >= (endVal - colorValueScale.bandwidth()).toFixed(4)) {
-        break;
       }
 
       stops.push({
@@ -151,7 +169,6 @@ export class ColorHelper {
         offset,
         opacity: 1
       });
-      currentVal = offset;
       i++;
     }
 

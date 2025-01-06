@@ -33,7 +33,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ]
       },
       {
@@ -67,7 +68,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -106,7 +108,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ]
       },
       {
@@ -141,7 +144,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -178,7 +182,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ]
       },
       {
@@ -211,7 +216,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -246,7 +252,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'Normalized GDP Per Capita',
@@ -281,7 +288,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -365,7 +373,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'GDP Per Capita',
@@ -398,7 +407,8 @@ const chartGroups = [
           'tooltipDisabled',
           'trimYAxisTicks',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'GDP Per Capita',
@@ -439,7 +449,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'GDP Per Capita',
@@ -480,7 +491,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'GDP Per Capita',
@@ -517,7 +529,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'Normalized GDP Per Capita',
@@ -562,7 +575,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           xAxisLabel: 'Census Date',
@@ -592,7 +606,8 @@ const chartGroups = [
           'strokeColor',
           'strokeWidth',
           'tooltipDisabled',
-          'gradient'
+          'gradient',
+          'customColors'
         ],
         defaults: {
           xAxisLabel: 'Latin American Countries',
@@ -636,7 +651,8 @@ const chartGroups = [
           'maxYAxisTickLength',
           'min',
           'max',
-          'wrapTicks'
+          'wrapTicks',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'Census Date',
@@ -733,7 +749,8 @@ const chartGroups = [
           'trimXAxisTicks',
           'trimYAxisTicks',
           'maxXAxisTickLength',
-          'maxYAxisTickLength'
+          'maxYAxisTickLength',
+          'customColors'
         ],
         defaults: {
           width: 1100,
@@ -777,7 +794,8 @@ const chartGroups = [
           'xScaleMin',
           'xScaleMax',
           'yScaleMin',
-          'yScaleMax'
+          'yScaleMax',
+          'customColors'
         ],
         defaults: {
           xAxisLabel: 'Order Total',
@@ -829,7 +847,8 @@ const chartGroups = [
           'yAxisLabel',
           'showGridLines',
           'roundDomains',
-          'tooltipDisabled'
+          'tooltipDisabled',
+          'customColors'
         ]
       },
       {
@@ -869,7 +888,8 @@ const chartGroups = [
           'trimXAxisTicks',
           'trimYAxisTicks',
           'maxXAxisTickLength',
-          'maxYAxisTickLength'
+          'maxYAxisTickLength',
+          'customColors'
         ],
         defaults: {
           yAxisLabel: 'GDP Per Capita',
@@ -893,7 +913,8 @@ const chartGroups = [
           'showXAxisLabel',
           'xAxisLabel',
           'showYAxisLabel',
-          'yAxisLabel'
+          'yAxisLabel',
+          'customColors'
         ]
       },
       {
@@ -924,7 +945,8 @@ const chartGroups = [
           'trimXAxisTicks',
           'trimYAxisTicks',
           'maxXAxisTickLength',
-          'maxYAxisTickLength'
+          'maxYAxisTickLength',
+          'customColors'
         ]
       },
       {
@@ -955,7 +977,8 @@ const chartGroups = [
           'trimXAxisTicks',
           'trimYAxisTicks',
           'maxXAxisTickLength',
-          'maxYAxisTickLength'
+          'maxYAxisTickLength',
+          'customColors'
         ]
       }
     ]
