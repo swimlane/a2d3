@@ -77,14 +77,9 @@ import { TextAnchor } from '../types/text-anchor.enum';
       </svg:g>
     </svg:g>
 
-    <svg:g *ngFor="let refLine of referenceLines">
+    <svg:g *ngFor="let refLine of referenceLines" class="ref-line">
       <svg:g *ngIf="showRefLines" [attr.transform]="transform(refLine.value)">
-        <svg:line
-          class="refline-path gridline-path-horizontal"
-          x1="0"
-          [attr.x2]="gridLineWidth"
-          [attr.transform]="gridLineTransform()"
-        />
+        <svg:line class="refline-path gridline-path-horizontal" x1="0" [attr.x2]="gridLineWidth" />
         <svg:g *ngIf="showRefLabels">
           <title>{{ tickTrim(tickFormat(refLine.value)) }}</title>
           <svg:text

@@ -23,6 +23,7 @@ import { Series } from '../models/chart-data.model';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { ScaleType } from '../common/types/scale-type.enum';
+import { select } from 'd3-selection';
 
 @Component({
   selector: 'ngx-charts-area-chart',
@@ -75,6 +76,9 @@ import { ScaleType } from '../common/types/scale-type.enum';
           [maxTickLength]="maxYAxisTickLength"
           [tickFormatting]="yAxisTickFormatting"
           [ticks]="yAxisTicks"
+          [referenceLines]="referenceLines"
+          [showRefLines]="showRefLines"
+          [showRefLabels]="showRefLabels"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateYAxisWidth($event)"
         ></svg:g>
@@ -192,6 +196,9 @@ export class AreaChartComponent extends BaseChartComponent {
   @Input() yAxisTicks: any[];
   @Input() roundDomains: boolean = false;
   @Input() tooltipDisabled: boolean = false;
+  @Input() referenceLines: any[];
+  @Input() showRefLines: boolean = false;
+  @Input() showRefLabels: boolean = false;
   @Input() xScaleMin: any;
   @Input() xScaleMax: any;
   @Input() yScaleMin: number;
@@ -274,6 +281,10 @@ export class AreaChartComponent extends BaseChartComponent {
 
     this.clipPathId = 'clip' + id().toString();
     this.clipPath = `url(#${this.clipPathId})`;
+
+    const parent = select(this.chartElement.nativeElement).select('.area-chart').node() as HTMLElement;
+    const refLines = select(this.chartElement.nativeElement).selectAll('.ref-line').nodes() as HTMLElement[];
+    refLines.forEach(line => parent.appendChild(line));
   }
 
   updateTimeline(): void {

@@ -30,6 +30,9 @@ import { ViewDimensions } from '../types/view-dimension.interface';
         [orient]="xOrient"
         [showGridLines]="showGridLines"
         [gridLineHeight]="dims.height"
+        [referenceLines]="referenceLines"
+        [showRefLines]="showRefLines"
+        [showRefLabels]="showRefLabels"
         [width]="dims.width"
         [tickValues]="ticks"
         [wrapTicks]="wrapTicks"
@@ -61,6 +64,9 @@ export class XAxisComponent implements OnChanges {
   @Input() ticks: any[];
   @Input() xAxisTickCount: number;
   @Input() xOrient: Orientation = Orientation.Bottom;
+  @Input() referenceLines: any[];
+  @Input() showRefLines: boolean;
+  @Input() showRefLabels: boolean;
   @Input() xAxisOffset: number = 0;
   @Input() wrapTicks = false;
 
