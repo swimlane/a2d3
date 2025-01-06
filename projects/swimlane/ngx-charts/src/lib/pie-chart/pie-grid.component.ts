@@ -28,7 +28,11 @@ import { ScaleType } from '../common/types/scale-type.enum';
   template: `
     <ngx-charts-chart [view]="[width, height]" [showLegend]="false" [animations]="animations">
       <svg:g [attr.transform]="transform" class="pie-grid chart">
-        <svg:g *ngFor="let series of series" class="pie-grid-item" [attr.transform]="series.transform">
+        <svg:g
+          *ngFor="let series of series; trackBy: trackBy"
+          class="pie-grid-item"
+          [attr.transform]="series.transform"
+        >
           <svg:g
             ngx-charts-pie-grid-series
             [colors]="series.colors"
@@ -199,6 +203,10 @@ export class PieGridComponent extends BaseChartComponent {
         ]
       };
     });
+  }
+
+  trackBy(index, item): string {
+    return item.data.name;
   }
 
   getTotal(): any {
