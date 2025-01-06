@@ -139,6 +139,8 @@ import { ScaleType } from '../common/types/scale-type.enum';
         [customColors]="customColors"
         [legend]="legend"
         [scaleType]="scaleType"
+        [xScaleMin]="xScaleMin"
+        [xScaleMax]="xScaleMax"
         (onDomainChange)="updateDomain($event)"
       >
         <svg:g *ngFor="let series of results; trackBy: trackBy">

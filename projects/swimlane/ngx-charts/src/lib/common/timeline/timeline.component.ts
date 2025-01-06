@@ -49,6 +49,8 @@ export class Timeline implements OnChanges {
   @Input() autoScale: boolean;
   @Input() scaleType: ScaleType;
   @Input() height: number = 50;
+  @Input() xScaleMin: any;
+  @Input() xScaleMax: any;
 
   @Output() select = new EventEmitter();
   @Output() onDomainChange = new EventEmitter();
@@ -108,14 +110,14 @@ export class Timeline implements OnChanges {
     }
 
     let domain = [];
-    if (this.scaleType === ScaleType.Time) {
-      const min = Math.min(...values);
-      const max = Math.max(...values);
+    if (this.scaleType === 'time') {
+      const min = this.xScaleMin ?? Math.min(...values);
+      const max = this.xScaleMax ?? Math.max(...values);
       domain = [min, max];
     } else if (this.scaleType === ScaleType.Linear) {
       values = values.map(v => Number(v));
-      const min = Math.min(...values);
-      const max = Math.max(...values);
+      const min = this.xScaleMin ?? Math.min(...values);
+      const max = this.xScaleMax ?? Math.max(...values);
       domain = [min, max];
     } else {
       domain = values;
