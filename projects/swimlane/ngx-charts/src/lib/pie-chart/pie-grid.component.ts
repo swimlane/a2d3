@@ -9,7 +9,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { min } from 'd3-array';
-import { format } from 'd3-format';
+import { formatLocale } from 'd3-format';
 
 import { calculateViewDimensions } from '../common/view-dimensions.helper';
 import { ColorHelper } from '../common/color.helper';
@@ -176,6 +176,7 @@ export class PieGridComponent extends BaseChartComponent {
 
       const xPos = d.x + (d.width - padding) / 2;
       const yPos = d.y + (d.height - baselineLabelHeight) / 2;
+      const _format = formatLocale({ minus: '\u002D' }).format;
 
       return {
         transform: `translate(${xPos}, ${yPos})`,
@@ -186,7 +187,7 @@ export class PieGridComponent extends BaseChartComponent {
         label: trimLabel(label),
         total: value,
         value,
-        percent: format('.1%')(d.data.percent),
+        percent: _format('.1%')(d.data.percent),
         data: [
           d,
           {
