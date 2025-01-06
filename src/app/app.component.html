@@ -309,6 +309,9 @@
         [gradient]="gradient"
         [tooltipDisabled]="tooltipDisabled"
         [tooltipText]="pieTooltipText"
+        [displayTotal]="displayTotal"
+        [totalFontSize]="totalFontSize"
+        [totalDisplayText]="totalDisplayText"
         (dblclick)="dblclick($event)"
         (select)="select($event)"
         (activate)="activate($event)"
@@ -1436,6 +1439,25 @@
         <div *ngIf="chart.options.includes('arcWidth') && doughnut">
           <label>Arc width (fraction of radius):</label><br />
           <input type="number" [disabled]="!doughnut" [(ngModel)]="arcWidth" max="1" min="0" step="0.01" /><br />
+        </div>
+        <div *ngIf="doughnut && chart.options.includes('displayTotal')">
+          <label>
+            <input type="checkbox" [(ngModel)]="displayTotal" />
+            Display Total
+          </label>
+          <br />
+        </div>
+        <div *ngIf="doughnut && displayTotal && chart.options.includes('totalFontSize')">
+          <label>
+            <label>Total Font Size (px):</label><br />
+            <input type="number" [disabled]="!doughnut" [(ngModel)]="totalFontSize" min="0" step="1" /><br />
+          </label>
+        </div>
+        <div *ngIf="doughnut && displayTotal && chart.options.includes('totalDisplayText')">
+          <label>
+            <label>Total Display Text:</label><br />
+            <input type="text" [(ngModel)]="totalDisplayText" /><br />
+          </label>
         </div>
         <div *ngIf="chart.options.includes('explodeSlices') && !doughnut">
           <label>

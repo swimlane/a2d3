@@ -41,7 +41,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
           [activeEntries]="activeEntries"
           [innerRadius]="innerRadius"
           [outerRadius]="outerRadius"
-          [explodeSlices]="explodeSlices"
+          [explodeSlices]="explodeSlices && !doughnut"
           [gradient]="gradient"
           [animations]="animations"
           [tooltipDisabled]="tooltipDisabled"
@@ -52,6 +52,40 @@ import { ScaleType } from '../common/types/scale-type.enum';
           (activate)="onActivate($event)"
           (deactivate)="onDeactivate($event)"
         />
+        <svg:text
+          [style.display]="displayTotal && doughnut && animations ? 'block' : 'none'"
+          class="pie-total"
+          dy="-0.5em"
+          x="0"
+          [attr.y]="totalFontSize / 2"
+          [attr.font-size]="totalFontSize + 'px'"
+          ngx-charts-count-up
+          [countTo]="total"
+          [countSuffix]="suffix"
+          text-anchor="middle"
+        ></svg:text>
+        <svg:text 
+          [style.display]="displayTotal && doughnut && !animations ? 'block' : 'none'" 
+          class="pie-total" 
+          dy="-0.5em" 
+          x="0" 
+          [attr.y]="totalFontSize / 2" 
+          [attr.font-size]="totalFontSize + 'px'"
+          text-anchor="middle"
+        >
+          {{ this.total + this.suffix }}
+        </svg:text>
+        <svg:text 
+          [style.display]="displayTotal && doughnut ? 'block' : 'none'" 
+          class="pie-total" 
+          dy="0.5em" 
+          x="0" 
+          [attr.y]="totalFontSize / 2" 
+          [attr.font-size]="totalFontSize / 2 + 'px'"
+          text-anchor="middle"
+        >
+          {{ this.totalDisplayText }}
+        </svg:text>
       </svg:g>
     </ngx-charts-chart>
   `,
@@ -74,6 +108,9 @@ export class PieChartComponent extends BaseChartComponent {
   @Input() trimLabels: boolean = true;
   @Input() maxLabelLength: number = 10;
   @Input() tooltipText: any;
+  @Input() displayTotal: boolean = false;
+  @Input() totalFontSize: number = 24;
+  @Input() totalDisplayText: string = 'TOTAL';
   @Output() dblclick = new EventEmitter();
   // optional margins
   @Input() margins: number[];
@@ -91,6 +128,8 @@ export class PieChartComponent extends BaseChartComponent {
   domain: string[];
   dims: ViewDimensions;
   legendOptions: LegendOptions;
+  total: any;
+  suffix: string = '';
 
   update(): void {
     super.update();
@@ -136,6 +175,38 @@ export class PieChartComponent extends BaseChartComponent {
 
     this.setColors();
     this.legendOptions = this.getLegendOptions();
+
+    if (this.displayTotal) {
+      this.calcTotal();
+    }
+  }
+
+  calcTotal(): void {
+    let t = 0;
+    for (let d of this.results) {
+      t += d.value;
+    }
+
+    if (Math.abs(t) < 1000) {
+      this.total = t.toFixed(2);
+    } else {
+      let coeff, exponent;
+      [coeff, exponent] =
+        t.toExponential().split('e').map(item => Number(item));
+      if (exponent < 6) {
+        this.total = (coeff * Math.pow(10, exponent - 3)).toFixed(2);
+        this.suffix = 'K';
+      } else if (exponent < 9) {
+        this.total = (coeff * Math.pow(10, exponent - 6)).toFixed(2);
+        this.suffix = 'M';
+      } else if (exponent < 12) {
+        this.total = (coeff * Math.pow(10, exponent - 9)).toFixed(2);
+        this.suffix = 'B';
+      } else {
+        this.total = coeff.toFixed(2);
+        this.suffix = "e" + exponent;
+      }
+    }
   }
 
   getDomain(): string[] {

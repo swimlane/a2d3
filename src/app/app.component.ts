@@ -180,6 +180,9 @@ export class AppComponent implements OnInit {
   explodeSlices = false;
   doughnut = false;
   arcWidth = 0.25;
+  displayTotal = false;
+  totalFontSize = 24;
+  totalDisplayText = 'TOTAL';
 
   // line, area
   autoScale = true;
