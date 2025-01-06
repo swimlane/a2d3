@@ -524,7 +524,44 @@ const chartGroups = [
           xAxisLabel: 'Census Date',
           linearScale: true
         }
-      }
+      },
+      {
+        name: 'River Area Chart',
+        selector: 'area-chart-river',
+        inputFormat: 'multiSeries',
+        options: [
+          'animations',
+          'colorScheme',
+          'schemeType',
+          'showXAxis',
+          'showYAxis',
+          'gradient',
+          'showLegend',
+          'legendTitle',
+          'legendPosition',
+          'showXAxisLabel',
+          'xAxisLabel',
+          'showYAxisLabel',
+          'yAxisLabel',
+          'autoScale',
+          'timeline',
+          'showGridLines',
+          'curve',
+          'roundDomains',
+          'tooltipDisabled',
+          'trimXAxisTicks',
+          'trimYAxisTicks',
+          'rotateXAxisTicks',
+          'maxXAxisTickLength',
+          'maxYAxisTickLength',
+          'wrapTicks'
+        ],
+        defaults: {
+          yAxisLabel: 'GDP Per Capita',
+          xAxisLabel: 'Census Date',
+          linearScale: true
+        }
+      },
     ]
   },
   {
