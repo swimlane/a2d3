@@ -162,6 +162,7 @@ import { isPlatformServer } from '@angular/common';
         [customColors]="customColors"
         [scaleType]="scaleType"
         [legend]="legend"
+        [xScale]="timelineXScale"
         (onDomainChange)="updateDomain($event)"
       >
         <svg:g *ngFor="let series of results; trackBy: trackBy">

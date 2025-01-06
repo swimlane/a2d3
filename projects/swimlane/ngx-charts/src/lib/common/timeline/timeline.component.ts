@@ -49,6 +49,7 @@ export class Timeline implements OnChanges {
   @Input() autoScale: boolean;
   @Input() scaleType: ScaleType;
   @Input() height: number = 50;
+  @Input() xScale: any;
 
   @Output() select = new EventEmitter();
   @Output() onDomainChange = new EventEmitter();
@@ -56,7 +57,6 @@ export class Timeline implements OnChanges {
   element: HTMLElement;
   dims: ViewDimensions;
   xDomain: any[];
-  xScale: any;
   brush: any;
   transform: string;
   initialized: boolean = false;
@@ -80,9 +80,6 @@ export class Timeline implements OnChanges {
     this.dims = this.getDims();
     this.height = this.dims.height;
     const offsetY = this.view[1] - this.height;
-
-    this.xDomain = this.getXDomain();
-    this.xScale = this.getXScale();
 
     if (this.brush) {
       this.updateBrush();

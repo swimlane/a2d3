@@ -13,6 +13,7 @@ import { TreeMapModule } from './tree-map/tree-map.module';
 import { GaugeModule } from './gauge/gauge.module';
 import { ngxChartsPolyfills } from './polyfills';
 import { SankeyModule } from './sankey/sankey.module';
+import { TimelineChartModule } from './timeline-chart/timeline-chart.module';
 
 @NgModule({
   exports: [
@@ -28,7 +29,8 @@ import { SankeyModule } from './sankey/sankey.module';
     NumberCardModule,
     PieChartModule,
     TreeMapModule,
-    GaugeModule
+    GaugeModule,
+    TimelineChartModule
   ]
 })
 export class NgxChartsModule {

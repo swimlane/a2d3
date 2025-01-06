@@ -417,6 +417,83 @@
         (deactivate)="deactivate($event)"
       >
       </ngx-charts-polar-chart>
+      <ngx-charts-timeline-chart
+        *ngIf="chartType === 'timeline-chart'"
+        class="chart-container"
+        [view]="view"
+        [scheme]="colorScheme"
+        [schemeType]="schemeType"
+        [customColors]="customColors"
+        [results]="timelineStandardData"
+        [animations]="animations"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [tooltipDisabled]="tooltipDisabled"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [showGridLines]="showGridLines"
+        [barPadding]="barPadding"
+        [roundDomains]="roundDomains"
+        [roundEdges]="roundEdges"
+        [xScaleMax]="xScaleMax"
+        [noBarWhenZero]="noBarWhenZero"
+        [trimXAxisTicks]="trimXAxisTicks"
+        [trimYAxisTicks]="trimYAxisTicks"
+        [rotateXAxisTicks]="rotateXAxisTicks"
+        [maxXAxisTickLength]="maxXAxisTickLength"
+        [maxYAxisTickLength]="maxYAxisTickLength"
+        [wrapTicks]="wrapTicks"
+        [timelineFilter]="timeline"
+        [tooltipType]="tooltipType"
+        (select)="select($event)"
+        (activate)="activate($event)"
+        (deactivate)="deactivate($event)"
+      >
+      </ngx-charts-timeline-chart>
+      <ngx-charts-timeline-stacked
+        *ngIf="chartType === 'timeline-stacked'"
+        class="chart-container"
+        [view]="view"
+        [scheme]="colorScheme"
+        [schemeType]="schemeType"
+        [results]="timelineStackedData"
+        [animations]="animations"
+        [gradient]="gradient"
+        [tooltipDisabled]="tooltipDisabled"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [showGridLines]="showGridLines"
+        [barPadding]="barPadding"
+        [roundDomains]="roundDomains"
+        [roundEdges]="roundEdges"
+        [xScaleMax]="xScaleMax"
+        [noBarWhenZero]="noBarWhenZero"
+        [trimXAxisTicks]="trimXAxisTicks"
+        [trimYAxisTicks]="trimYAxisTicks"
+        [rotateXAxisTicks]="rotateXAxisTicks"
+        [maxXAxisTickLength]="maxXAxisTickLength"
+        [maxYAxisTickLength]="maxYAxisTickLength"
+        [wrapTicks]="wrapTicks"
+        [timelineFilter]="timeline"
+        [tooltipType]="tooltipType"
+        (select)="select($event)"
+        (activate)="activate($event)"
+        (deactivate)="deactivate($event)"
+      >
+      </ngx-charts-timeline-stacked>
       <ngx-charts-bubble-chart
         *ngIf="chartType === 'bubble-chart'"
         [view]="view"
@@ -1175,6 +1252,8 @@
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ barChart | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ lineChartSeries | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'timelineFilter'">{{ timelineFilterBarData | json }}</pre>
+        <pre *ngIf="chart.inputFormat === 'timelineStandard'">{{ timelineStandardData | json }}</pre>
+        <pre *ngIf="chart.inputFormat === 'timelineStacked'">{{ timelineStackedData | json }}</pre>
         <div>
           <label>
             <input type="checkbox" [(ngModel)]="realTimeData" />
@@ -1367,6 +1446,13 @@
             Disable tooltip
           </label>
           <br />
+        </div>
+        <div *ngIf="chart.options.includes('tooltipType') && !tooltipDisabled">
+          <label>Tooltip Type:</label><br />
+          <select style="margin-left: 10px" [(ngModel)]="tooltipType">
+            <option value="vertical">Vertical</option>
+            <option value="barLabel">Bar Label</option>
+          </select>
         </div>
         <div *ngIf="chart.options.includes('showText')">
           <label>

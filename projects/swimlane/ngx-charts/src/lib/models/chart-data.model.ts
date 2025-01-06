@@ -85,6 +85,21 @@ export interface BoxChartSeries {
 
 export interface BoxChartMultiSeries extends Array<BoxChartSeries> {}
 
+export interface TimelineStandardDataItem {
+  name: StringOrNumberOrDate;
+  startTime: Date;
+  endTime: Date;
+}
+
+export interface TimelineStandardData extends Array<TimelineStandardDataItem> {}
+
+export interface TimelineStackedDataItem {
+  name: StringOrNumberOrDate;
+  series: TimelineStandardDataItem[];
+}
+
+export interface TimelineStackedData extends Array<TimelineStackedDataItem> {}
+
 export interface IBoxModel {
   value: number | Date;
   label: StringOrNumberOrDate;

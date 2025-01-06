@@ -15,7 +15,9 @@ import {
   generateGraph,
   treemap,
   timelineFilterBarData,
-  fiscalYearReport
+  fiscalYearReport,
+  timelineStandardData,
+  timelineStackedData
 } from './data';
 import { bubbleDemoData } from './custom-charts/bubble-chart-interactive/data';
 import { BubbleChartInteractiveServerDataModel } from './custom-charts/bubble-chart-interactive/models';
@@ -215,6 +217,11 @@ export class AppComponent implements OnInit {
   heatmapMin: number = 0;
   heatmapMax: number = 50000;
 
+  // timeline chart
+  timelineStandardData = timelineStandardData;
+  timelineStackedData = timelineStackedData;
+  tooltipType = 'barLabel';
+
   // Combo Chart
   barChart: any[] = barChart;
   lineChartSeries: any[] = lineChartSeries;
@@ -371,6 +378,18 @@ export class AppComponent implements OnInit {
         this.boxData.splice(index, 1);
         this.boxData = [...this.boxData];
       }
+
+      if (this.timelineStandardData.length > 1) {
+        const index = Math.floor(Math.random() * this.timelineStandardData.length);
+        this.timelineStandardData.splice(index, 1);
+        this.timelineStandardData = [...this.timelineStandardData];
+      }
+
+      if (this.timelineStackedData.length > 1) {
+        const index = Math.floor(Math.random() * this.timelineStackedData.length);
+        this.timelineStackedData.splice(index, 1);
+        this.timelineStackedData = [...this.timelineStackedData];
+      }
     }
 
     if (add) {
@@ -468,6 +487,43 @@ export class AppComponent implements OnInit {
       this.statusData = this.getStatusData();
 
       this.timelineFilterBarData = timelineFilterBarData();
+
+      // timeline standard chart
+      const startTime = Math.floor(1473700105009 + Math.random() * 1000000000);
+      const timelineStandardEntry = {
+        name: country.name,
+        startTime: new Date(startTime),
+        endTime: new Date(startTime + Math.floor(300000000 + Math.random() * 1000000000))
+      };
+      this.timelineStandardData = [...this.timelineStandardData, timelineStandardEntry];
+
+      // timeline stacked chart
+      const times = [];
+      times.push(Math.floor(1473700105009 + Math.random() * 1000000000));
+      for (let i = 0; i < 3; i++) {
+        times[i + 1] = times[i] + Math.floor(300000000 + Math.random() * 1000000000);
+      }
+      const timelineStackedEntry = {
+        name: country.name,
+        series: [
+          {
+            name: 1990,
+            startTime: new Date(times[0]),
+            endTime: new Date(times[1])
+          },
+          {
+            name: 2000,
+            startTime: new Date(times[1]),
+            endTime: new Date(times[2])
+          },
+          {
+            name: 2010,
+            startTime: new Date(times[2]),
+            endTime: new Date(times[3])
+          }
+        ]
+      };
+      this.timelineStackedData = [...this.timelineStackedData, timelineStackedEntry];
     }
 
     const date = new Date(Math.floor(1473700105009 + Math.random() * 1000000000));

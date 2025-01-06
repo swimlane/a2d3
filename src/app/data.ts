@@ -6,7 +6,9 @@ import {
   BoxChartMultiSeries,
   Series,
   TreeMapData,
-  SankeyData
+  SankeyData,
+  TimelineStandardData,
+  TimelineStackedData
 } from '@swimlane/ngx-charts/models/chart-data.model';
 
 export const single: SingleSeries = [
@@ -885,4 +887,160 @@ export const sankeyData: SankeyData = [
   { source: 'UK', target: 'Bosnia and Herzegovina', value: 20 },
   { source: 'Republic of Equatorial Guinea', target: 'Republic of Costa Rica', value: 30 },
   { source: 'Republic of Equatorial Guinea', target: 'Portugal', value: 5 }
+];
+
+export const timelineStandardData: TimelineStandardData = [
+  {
+    name: 'Germany',
+    startTime: new Date('September 22 2016'),
+    endTime: new Date('September 23 2016')
+  },
+  {
+    name: 'United States',
+    startTime: new Date('September 23 2016'),
+    endTime: new Date('September 24 2016')
+  },
+  {
+    name: 'France',
+    startTime: new Date('September 23 2016'),
+    endTime: new Date('September 25 2016')
+  },
+  {
+    name: 'United Kingdom',
+    startTime: new Date('September 22 2016'),
+    endTime: new Date('September 24 2016')
+  },
+  {
+    name: 'Spain',
+    startTime: new Date('September 22 2016'),
+    endTime: new Date('September 26 2016')
+  },
+  {
+    name: 'Italy',
+    startTime: new Date('September 24 2016'),
+    endTime: new Date('September 25 2016')
+  }
+];
+
+export const timelineStackedData: TimelineStackedData = [
+  {
+    name: 'Germany',
+    series: [
+      {
+        name: 1990,
+        startTime: new Date('September 22 2016'),
+        endTime: new Date('September 23 2016')
+      },
+      {
+        name: 2000,
+        startTime: new Date('September 24 2016'),
+        endTime: new Date('September 26 2016')
+      },
+      {
+        name: 2010,
+        startTime: new Date('September 26 2016'),
+        endTime: new Date('September 27 2016')
+      },
+    ]
+  },
+  {
+    name: 'United States',
+    series: [
+      {
+        name: 1990,
+        startTime: new Date('September 21 2016'),
+        endTime: new Date('September 22 2016')
+      },
+      {
+        name: 2000,
+        startTime: new Date('September 22 2016'),
+        endTime: new Date('September 23 2016')
+      },
+      {
+        name: 2010,
+        startTime: new Date('September 23 2016'),
+        endTime: new Date('September 24 2016')
+      },
+    ]
+  },
+  {
+    name: 'France',
+    series: [
+      {
+        name: 1990,
+        startTime: new Date('September 22 2016'),
+        endTime: new Date('September 23 2016')
+      },
+      {
+        name: 2000,
+        startTime: new Date('September 23 2016'),
+        endTime: new Date('September 25 2016')
+      },
+      {
+        name: 2010,
+        startTime: new Date('September 25 2016'),
+        endTime: new Date('September 26 2016')
+      },
+    ]
+  },
+  {
+    name: 'United Kingdom',
+    series: [
+      {
+        name: 1990,
+        startTime: new Date('September 22 2016'),
+        endTime: new Date('September 22 2016')
+      },
+      {
+        name: 2000,
+        startTime: new Date('September 22 2016'),
+        endTime: new Date('September 23 2016')
+      },
+      {
+        name: 2010,
+        startTime: new Date('September 23 2016'),
+        endTime: new Date('September 25 2016')
+      },
+    ]
+  },
+  {
+    name: 'Spain',
+    series: [
+      {
+        name: 1990,
+        startTime: new Date('September 25 2016'),
+        endTime: new Date('September 26 2016')
+      },
+      {
+        name: 2000,
+        startTime: new Date('September 26 2016'),
+        endTime: new Date('September 28 2016')
+      },
+      {
+        name: 2010,
+        startTime: new Date('September 28 2016'),
+        endTime: new Date('September 29 2016')
+      },
+    ]
+  },
+  {
+    name: 'Italy',
+    series: [
+      {
+        name: 1990,
+        startTime: new Date('September 24 2016'),
+        endTime: new Date('September 26 2016')
+      },
+      {
+        name: 2000,
+        startTime: new Date('September 26 2016'),
+        endTime: new Date('September 27 2016')
+      },
+      {
+        name: 2010,
+        startTime: new Date('September 27 2016'),
+        endTime: new Date('September 28 2016')
+      },
+    ]
+  }
 ];
