@@ -9,6 +9,7 @@ import {
   TemplateRef
 } from '@angular/core';
 import { calculateViewDimensions } from '../common/view-dimensions.helper';
+import { degreesToRadians } from '../utils/convert-angle';
 import { ColorHelper } from '../common/color.helper';
 import { BaseChartComponent } from '../common/base-chart.component';
 import { DataItem } from '../models/chart-data.model';
@@ -47,6 +48,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
           [tooltipDisabled]="tooltipDisabled"
           [tooltipTemplate]="tooltipTemplate"
           [tooltipText]="tooltipText"
+          [minRadiansToShowLabel]="getMinRadiansToShowLabel()"
           (dblclick)="dblclick.emit($event)"
           (select)="onClick($event)"
           (activate)="onActivate($event)"
@@ -73,6 +75,7 @@ export class PieChartComponent extends BaseChartComponent {
   @Input() labelFormatting: any;
   @Input() trimLabels: boolean = true;
   @Input() maxLabelLength: number = 10;
+  @Input() minDegreesToShowLabel: number = 6
   @Input() tooltipText: any;
   @Output() dblclick = new EventEmitter();
   // optional margins
@@ -140,6 +143,10 @@ export class PieChartComponent extends BaseChartComponent {
 
   getDomain(): string[] {
     return this.results.map(d => d.label);
+  }
+
+  getMinRadiansToShowLabel(): number {
+    return degreesToRadians(this.minDegreesToShowLabel);
   }
 
   onClick(data: DataItem | string): void {

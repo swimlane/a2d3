@@ -309,6 +309,7 @@
         [gradient]="gradient"
         [tooltipDisabled]="tooltipDisabled"
         [tooltipText]="pieTooltipText"
+        [minDegreesToShowLabel]="minDegreesToShowLabel"
         (dblclick)="dblclick($event)"
         (select)="select($event)"
         (activate)="activate($event)"
@@ -1443,6 +1444,10 @@
             Explode Slices
           </label>
           <br />
+        </div>
+        <div *ngIf="chart.options.includes('minDegreesToShowLabel') && !doughnut">
+          <label>Min series angle to show the label (°):</label><br />
+          <input type="number" [(ngModel)]="minDegreesToShowLabel" min="0" max="360" />
         </div>
         <div *ngIf="chart.options.includes('autoScale')">
           <label>

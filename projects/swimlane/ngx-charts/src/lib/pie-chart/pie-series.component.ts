@@ -84,6 +84,7 @@ export class PieSeriesComponent implements OnChanges {
   @Input() tooltipDisabled: boolean = false;
   @Input() tooltipTemplate: TemplateRef<any>;
   @Input() animations: boolean = true;
+  @Input() minRadiansToShowLabel: number = Math.PI / 30;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
@@ -164,7 +165,8 @@ export class PieSeriesComponent implements OnChanges {
   }
 
   labelVisible(myArc): boolean {
-    return this.showLabels && myArc.endAngle - myArc.startAngle > Math.PI / 30;
+    const angle =  myArc.endAngle - myArc.startAngle;
+    return this.showLabels && angle >= this.minRadiansToShowLabel && angle > 0;
   }
 
   getTooltipTitle(a) {
