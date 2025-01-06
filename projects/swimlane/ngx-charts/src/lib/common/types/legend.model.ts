@@ -6,11 +6,13 @@ export interface LegendOptions {
   position: LegendPosition;
   title: string;
   scaleType: ScaleType;
+  fontSize?: string;
 }
 
 export enum LegendPosition {
   Right = 'right',
-  Below = 'below'
+  Below = 'below',
+  Left = 'left',
 }
 
 export enum LegendType {

@@ -15,6 +15,7 @@
         [yAxis]="showYAxis"
         [legend]="showLegend"
         [legendTitle]="legendTitle"
+        [legendSize]="legendSize"
         [legendPosition]="legendPosition"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
@@ -1354,9 +1355,17 @@
           <label>Legend Title:</label><br />
           <input type="text" [(ngModel)]="legendTitle" /><br />
         </div>
+        <div *ngIf="chart.options.includes('legendSize')">
+          <label>Legend Size:</label><br />
+          <select style="margin-left: 10px" [(ngModel)]="legendSize">
+            <option value="small">Small</option>
+            <option value="middle">Middle</option>
+            <option value="large">Large</option></select><br />
+        </div><br />
         <div *ngIf="chart.options.includes('legendPosition')">
           <label>Legend Position:</label><br />
           <select style="margin-left: 10px" [(ngModel)]="legendPosition">
+            <!-- <option value="left">Left</option> -->
             <option value="right">Right</option>
             <option value="below">Below</option></select
           ><br />

@@ -11,20 +11,23 @@ import {
 } from '@angular/core';
 import { formatLabel } from '../label.helper';
 import { ColorHelper } from '../color.helper';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export interface LegendEntry {
   color: string;
   formattedLabel: string;
   label: string;
 }
-
+// <header class="legend-title" *ngIf="title?.length > 0" [ngStyle]="{'font-size': fontSize}">
+// <span class="legend-title-text">{{ title }}</span>
+// </header>
 @Component({
   selector: 'ngx-charts-legend',
   template: `
     <div [style.width.px]="width">
-      <header class="legend-title" *ngIf="title?.length > 0">
-        <span class="legend-title-text">{{ title }}</span>
-      </header>
+    <header class="legend-title" *ngIf="title?.length > 0" [ngStyle]="{'font-size': fontSize}">
+      <div [innerHTML]="sanitizedLegendTitle"></div>
+    </header>
       <div class="legend-wrap">
         <ul class="legend-labels" [class.horizontal-legend]="horizontal" [style.max-height.px]="height - 45">
           <li *ngFor="let entry of legendEntries; trackBy: trackBy" class="legend-label">
@@ -50,6 +53,7 @@ export interface LegendEntry {
 export class LegendComponent implements OnChanges {
   @Input() data: string[];
   @Input() title: string;
+  @Input() size: string;
   @Input() colors: ColorHelper;
   @Input() height: number;
   @Input() width: number;
@@ -61,8 +65,9 @@ export class LegendComponent implements OnChanges {
   @Output() labelDeactivate: EventEmitter<{ name: string }> = new EventEmitter();
 
   legendEntries: LegendEntry[] = [];
+  fontSize: string;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef, private sanitizer: DomSanitizer) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.update();
@@ -71,6 +76,19 @@ export class LegendComponent implements OnChanges {
   update(): void {
     this.cd.markForCheck();
     this.legendEntries = this.getLegendEntries();
+
+    switch (this.size) {
+      case 'large':
+        this.fontSize = '18px';
+        break;
+      case 'small':
+        this.fontSize = '12px';
+        break;
+      case 'middle':
+      default:
+        this.fontSize = '14px';
+        break;
+    }
   }
 
   getLegendEntries(): LegendEntry[] {
@@ -92,6 +110,10 @@ export class LegendComponent implements OnChanges {
     }
 
     return items;
+  }
+
+  get sanitizedLegendTitle(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(this.title);
   }
 
   isActive(entry: LegendEntry): boolean {

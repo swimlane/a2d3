@@ -87,6 +87,7 @@ export class AppComponent implements OnInit {
   gradient = false;
   showLegend = true;
   legendTitle = 'Legend';
+  legendSize = 'middle';
   legendPosition = LegendPosition.Right;
   showXAxisLabel = true;
   tooltipDisabled = false;

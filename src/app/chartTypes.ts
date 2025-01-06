@@ -17,6 +17,7 @@ const chartGroups = [
           'noBarWhenZero',
           'showLegend',
           'legendTitle',
+          'legendSize',
           'legendPosition',
           'showXAxisLabel',
           'xAxisLabel',

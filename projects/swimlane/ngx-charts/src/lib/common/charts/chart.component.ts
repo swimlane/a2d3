@@ -35,6 +35,7 @@ import { ScaleType } from '../types/scale-type.enum';
         [horizontal]="legendOptions && legendOptions.position === LegendPosition.Below"
         [data]="legendOptions.domain"
         [title]="legendOptions.title"
+        [size]="legendOptions.fontSize"
         [colors]="legendOptions.colors"
         [height]="view[1]"
         [width]="legendWidth"
