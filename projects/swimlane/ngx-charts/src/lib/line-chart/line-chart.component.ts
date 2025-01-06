@@ -78,6 +78,9 @@ import { isPlatformServer } from '@angular/common';
           [referenceLines]="referenceLines"
           [showRefLines]="showRefLines"
           [showRefLabels]="showRefLabels"
+          [refLineColor]="refLineColor"
+          [refLineWidth]="refLineWidth"
+          [refLineStyle]="refLineStyle"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateYAxisWidth($event)"
         ></svg:g>
@@ -231,6 +234,9 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
   @Input() showRefLines: boolean = false;
   @Input() referenceLines: any;
   @Input() showRefLabels: boolean = true;
+  @Input() refLineColor: string = "#455066";
+  @Input() refLineWidth: number = 1;
+  @Input() refLineStyle: string = "dashed";
   @Input() xScaleMin: number;
   @Input() xScaleMax: number;
   @Input() yScaleMin: number;

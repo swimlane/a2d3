@@ -990,6 +990,9 @@
         [showRefLines]="showRefLines"
         [showRefLabels]="showRefLabels"
         [referenceLines]="refLines"
+        [refLineColor]="refLineColor"
+        [refLineWidth]="refLineWidth"
+        [refLineStyle]="refLineStyle"
         [trimXAxisTicks]="trimXAxisTicks"
         [trimYAxisTicks]="trimYAxisTicks"
         [maxXAxisTickLength]="maxXAxisTickLength"
@@ -1271,6 +1274,18 @@
             Show Reference Lines
           </label>
           <br />
+        </div>
+        <div *ngIf="chart.options.includes('refLineColor')">
+          <label>Reference Line Color:</label><br />
+          <input type="text" [(ngModel)]="refLineColor" /><br />
+        </div>
+        <div *ngIf="chart.options.includes('refLineWidth')">
+          <label>Reference Line Width:</label><br />
+          <input type="number" [(ngModel)]="refLineWidth" max="10" min="0" step="1" /><br />
+        </div>
+        <div *ngIf="chart.options.includes('refLineStyle')">
+          <label>Reference Line Style:</label><br />
+          <input type="text" [(ngModel)]="refLineStyle" /><br /><br />
         </div>
         <div *ngIf="chart.options.includes('showYAxis')">
           <label>

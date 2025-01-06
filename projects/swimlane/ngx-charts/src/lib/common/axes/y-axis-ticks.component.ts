@@ -84,6 +84,9 @@ import { TextAnchor } from '../types/text-anchor.enum';
           x1="0"
           [attr.x2]="gridLineWidth"
           [attr.transform]="gridLineTransform()"
+          [attr.stroke]="refLineColor"
+          [attr.stroke-width]="refLineWidth"
+          [attr.stroke-dasharray]="referenceLineDasharray"
         />
         <svg:g *ngIf="showRefLabels">
           <title>{{ tickTrim(tickFormat(refLine.value)) }}</title>
@@ -117,6 +120,9 @@ export class YAxisTicksComponent implements OnChanges, AfterViewInit {
   @Input() referenceLines;
   @Input() showRefLabels: boolean = false;
   @Input() showRefLines: boolean = false;
+  @Input() refLineColor: string = "#455066";
+  @Input() refLineWidth: number = 1;
+  @Input() refLineStyle: string = "dashed";
   @Input() wrapTicks = false;
 
   @Output() dimensionsChanged = new EventEmitter();
@@ -142,6 +148,7 @@ export class YAxisTicksComponent implements OnChanges, AfterViewInit {
   refMin: number;
   referenceLineLength: number = 0;
   referenceAreaPath: string;
+  referenceLineDasharray: string;
 
   readonly Orientation = Orientation;
 
@@ -276,6 +283,19 @@ export class YAxisTicksComponent implements OnChanges, AfterViewInit {
       )
     );
     this.referenceLineLength = this.referenceLines.length;
+
+    if (this.refLineStyle == "dotted") {
+      this.referenceLineDasharray = (1 + this.refLineWidth) + ", " + (3 + this.refLineWidth);
+    }
+    else if (this.refLineStyle == "dashed") {
+      this.referenceLineDasharray = (5 + this.refLineWidth) + ", " + (5 + this.refLineWidth);
+    }
+    else if (this.refLineStyle == "solid") {
+      this.referenceLineDasharray = "0";
+    }
+    else {
+      this.referenceLineDasharray = this.refLineStyle;
+    }
 
     this.referenceAreaPath = roundedRect(0, this.refMax, this.gridLineWidth, this.refMin - this.refMax, 0, [
       false,

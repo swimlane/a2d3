@@ -32,6 +32,9 @@ import { ViewDimensions } from '../types/view-dimension.interface';
         [referenceLines]="referenceLines"
         [showRefLines]="showRefLines"
         [showRefLabels]="showRefLabels"
+        [refLineColor]="refLineColor"
+        [refLineWidth]="refLineWidth"
+        [refLineStyle]="refLineStyle"
         [height]="dims.height"
         [wrapTicks]="wrapTicks"
         (dimensionsChanged)="emitTicksWidth($event)"
@@ -65,6 +68,9 @@ export class YAxisComponent implements OnChanges {
   @Input() referenceLines;
   @Input() showRefLines: boolean;
   @Input() showRefLabels: boolean;
+  @Input() refLineColor: string = "#455066";
+  @Input() refLineWidth: number = 1;
+  @Input() refLineStyle: string = "dashed";
   @Input() yAxisOffset: number = 0;
   @Input() wrapTicks = false;
   @Output() dimensionsChanged = new EventEmitter();
