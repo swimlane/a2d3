@@ -75,7 +75,7 @@ export class ColorHelper {
     return colorScale;
   }
 
-  getColor(value: StringOrNumberOrDate): string {
+  getColor(value: StringOrNumberOrDate, label?: StringOrNumberOrDate): string {
     if (value === undefined || value === null) {
       throw new Error('Value can not be null');
     }
@@ -87,7 +87,7 @@ export class ColorHelper {
       return this.scale(valueScale(value as number));
     } else {
       if (typeof this.customColors === 'function') {
-        return this.customColors(value);
+        return this.customColors(value, label);
       }
 
       const formattedValue = value.toString();

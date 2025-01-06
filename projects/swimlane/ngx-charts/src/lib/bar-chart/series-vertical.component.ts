@@ -240,7 +240,7 @@ export class SeriesVerticalComponent implements OnChanges {
       }
 
       if (this.colors.scaleType === ScaleType.Ordinal) {
-        bar.color = this.colors.getColor(label);
+        bar.color = this.colors.getColor(value, label);
       } else {
         if (this.type === BarChartType.Standard) {
           bar.color = this.colors.getColor(value);
