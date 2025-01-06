@@ -22,6 +22,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { BarOrientation } from '../common/types/bar-orientation.enum';
 import { isPlatformServer } from '@angular/common';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-bar-vertical-2d',
@@ -57,6 +58,7 @@ import { isPlatformServer } from '@angular/common';
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [xAxisOffset]="dataLabelMaxHeight.negative"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
@@ -153,6 +155,7 @@ export class BarVertical2DComponent extends BaseChartComponent {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis;
   @Input() yAxis;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean;
   @Input() showYAxisLabel: boolean;
   @Input() xAxisLabel: string;

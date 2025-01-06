@@ -23,6 +23,7 @@ import { Series } from '../models/chart-data.model';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { ScaleType } from '../common/types/scale-type.enum';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-area-chart',
@@ -60,6 +61,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         ></svg:g>
@@ -169,6 +171,7 @@ export class AreaChartComponent extends BaseChartComponent {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis: boolean = false;
   @Input() yAxis: boolean = false;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() baseValue: any = 'auto';
   @Input() autoScale: boolean = false;
   @Input() showXAxisLabel: boolean;

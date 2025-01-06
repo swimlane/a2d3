@@ -21,6 +21,7 @@ import { SeriesType } from '../common/circle-series.component';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { ScaleType } from '../common/types/scale-type.enum';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-area-chart-stacked',
@@ -58,6 +59,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         ></svg:g>
@@ -168,6 +170,7 @@ export class AreaChartStackedComponent extends BaseChartComponent {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis: boolean = false;
   @Input() yAxis: boolean = false;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean;
   @Input() showYAxisLabel: boolean;
   @Input() xAxisLabel: string;

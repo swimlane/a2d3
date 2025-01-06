@@ -17,6 +17,7 @@ import { getScaleType } from '../common/domain.helper';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { ScaleType } from '../common/types/scale-type.enum';
+import { Orientation } from '../common/types/orientation.enum';
 
 interface RectItem {
   fill: string;
@@ -50,6 +51,7 @@ interface RectItem {
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         ></svg:g>
@@ -104,6 +106,7 @@ export class HeatMapComponent extends BaseChartComponent {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis: boolean;
   @Input() yAxis: boolean;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean;
   @Input() showYAxisLabel: boolean;
   @Input() xAxisLabel: string;

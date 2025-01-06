@@ -23,6 +23,7 @@ import { SeriesType } from '../common/circle-series.component';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-area-chart-normalized',
@@ -60,6 +61,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         ></svg:g>
@@ -171,6 +173,7 @@ export class AreaChartNormalizedComponent extends BaseChartComponent {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis: boolean;
   @Input() yAxis: boolean;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean = false;
   @Input() showYAxisLabel: boolean = false;
   @Input() xAxisLabel: string;

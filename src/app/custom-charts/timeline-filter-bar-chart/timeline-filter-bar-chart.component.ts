@@ -10,6 +10,7 @@ import {
   ScaleType,
   ViewDimensions
 } from 'projects/swimlane/ngx-charts/src/public-api';
+import { Orientation } from '@swimlane/ngx-charts/common/types/orientation.enum';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -29,6 +30,7 @@ import {
           [dims]="dims"
           [showLabel]="showXAxisLabel"
           [labelText]="xAxisLabel"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         ></svg:g>
@@ -80,6 +82,7 @@ export class TimelineFilterBarChartComponent extends BaseChartComponent {
   @Input() valueDomain: number[];
   @Input() xAxis;
   @Input() yAxis;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel;
   @Input() showYAxisLabel;
   @Input() xAxisLabel;

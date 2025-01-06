@@ -22,6 +22,7 @@ import { BarChartType } from './types/bar-chart-type.enum';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-bar-horizontal-stacked',
@@ -50,6 +51,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         ></svg:g>
@@ -151,6 +153,7 @@ export class BarHorizontalStackedComponent extends BaseChartComponent {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis;
   @Input() yAxis;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean;
   @Input() showYAxisLabel: boolean;
   @Input() xAxisLabel: string;

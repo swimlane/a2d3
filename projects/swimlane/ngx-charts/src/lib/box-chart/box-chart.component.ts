@@ -17,6 +17,7 @@ import { calculateViewDimensions } from '../common/view-dimensions.helper';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { LegendPosition, LegendOptions } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-box-chart',
@@ -38,6 +39,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
           [xScale]="xScale"
           [showLabel]="showXAxisLabel"
           [labelText]="xAxisLabel"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         />
@@ -90,6 +92,7 @@ export class BoxChartComponent extends BaseChartComponent {
   @Input() showGridLines: boolean = true;
   @Input() xAxis: boolean = true;
   @Input() yAxis: boolean = true;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean = true;
   @Input() showYAxisLabel: boolean = true;
   @Input() roundDomains: boolean = false;

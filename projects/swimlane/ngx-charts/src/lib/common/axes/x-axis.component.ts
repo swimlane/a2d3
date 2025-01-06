@@ -40,7 +40,7 @@ import { ViewDimensions } from '../types/view-dimension.interface';
         *ngIf="showLabel"
         [label]="labelText"
         [offset]="labelOffset"
-        [orient]="orientation.Bottom"
+        [orient]="xOrient"
         [height]="dims.height"
         [width]="dims.width"
       ></svg:g>
@@ -86,7 +86,11 @@ export class XAxisComponent implements OnChanges {
   }
 
   update(): void {
-    this.transform = `translate(0,${this.xAxisOffset + this.padding + this.dims.height})`;
+    if (this.xOrient === Orientation.Bottom) {
+      this.transform = `translate(0,${this.xAxisOffset + this.padding + this.dims.height})`;
+    } else {
+      this.transform = `translate(0,${this.xAxisOffset + this.padding})`;
+    }
 
     if (typeof this.xAxisTickCount !== 'undefined') {
       this.tickArguments = [this.xAxisTickCount];
@@ -94,9 +98,14 @@ export class XAxisComponent implements OnChanges {
   }
 
   emitTicksHeight({ height }): void {
-    const newLabelOffset = height + 25 + 5;
-    if (newLabelOffset !== this.labelOffset) {
-      this.labelOffset = newLabelOffset;
+    if (height + 25 + 5 !== this.labelOffset && this.xOrient === Orientation.Bottom) {
+      this.labelOffset = height + 25 + 5;
+      setTimeout(() => {
+        this.dimensionsChanged.emit({ height });
+      }, 0);
+    }
+    else if (height + 25 !== this.labelOffset) {
+      this.labelOffset = height + 25;
       setTimeout(() => {
         this.dimensionsChanged.emit({ height });
       }, 0);

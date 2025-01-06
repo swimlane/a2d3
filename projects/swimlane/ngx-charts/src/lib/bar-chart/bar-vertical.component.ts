@@ -17,6 +17,7 @@ import { DataItem } from '../models/chart-data.model';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-bar-vertical',
@@ -45,6 +46,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [xAxisOffset]="dataLabelMaxHeight.negative"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
@@ -98,6 +100,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis;
   @Input() yAxis;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean;
   @Input() showYAxisLabel: boolean;
   @Input() xAxisLabel: string;
@@ -146,6 +149,7 @@ export class BarVerticalComponent extends BaseChartComponent {
 
   update(): void {
     super.update();
+    console.log("xOrient", this.xOrient);
 
     if (!this.showDataLabel) {
       this.dataLabelMaxHeight = { negative: 0, positive: 0 };

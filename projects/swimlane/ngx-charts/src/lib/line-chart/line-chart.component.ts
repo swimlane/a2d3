@@ -23,6 +23,7 @@ import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { isPlatformServer } from '@angular/common';
+import { Orientation } from '../common/types/orientation.enum';
 
 @Component({
   selector: 'ngx-charts-line-chart',
@@ -60,6 +61,7 @@ import { isPlatformServer } from '@angular/common';
           [maxTickLength]="maxXAxisTickLength"
           [tickFormatting]="xAxisTickFormatting"
           [ticks]="xAxisTicks"
+          [xOrient]="xOrient"
           [wrapTicks]="wrapTicks"
           (dimensionsChanged)="updateXAxisHeight($event)"
         ></svg:g>
@@ -205,6 +207,7 @@ export class LineChartComponent extends BaseChartComponent implements OnInit {
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() xAxis: boolean;
   @Input() yAxis: boolean;
+  @Input() xOrient: Orientation = Orientation.Bottom;
   @Input() showXAxisLabel: boolean;
   @Input() showYAxisLabel: boolean;
   @Input() xAxisLabel: string;

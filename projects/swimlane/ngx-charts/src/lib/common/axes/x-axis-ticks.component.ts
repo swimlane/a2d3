@@ -51,7 +51,18 @@ import { TextAnchor } from '../types/text-anchor.enum';
 
     <svg:g *ngFor="let tick of ticks" [attr.transform]="tickTransform(tick)">
       <svg:g *ngIf="showGridLines" [attr.transform]="gridLineTransform()">
-        <svg:line class="gridline-path gridline-path-vertical" [attr.y1]="-gridLineHeight" y2="0" />
+        <svg:line
+          *ngIf="orient === Orientation.Top"
+          class="gridline-path gridline-path-vertical"
+          [attr.y1]="gridLineHeight"
+          y2="0"
+        />
+        <svg:line
+          *ngIf="orient === Orientation.Bottom"
+          class="gridline-path gridline-path-vertical"
+          [attr.y1]="-gridLineHeight"
+          y2="0"
+        />
       </svg:g>
     </svg:g>
   `,
@@ -89,6 +100,8 @@ export class XAxisTicksComponent implements OnChanges, AfterViewInit {
   height: number = 0;
   approxHeight: number = 10;
   maxPossibleLengthForTickIfWrapped = 16;
+
+  readonly Orientation = Orientation;
 
   @ViewChild('ticksel') ticksElement: ElementRef;
 
@@ -149,10 +162,20 @@ export class XAxisTicksComponent implements OnChanges, AfterViewInit {
 
     this.textTransform = '';
     if (angle && angle !== 0) {
-      this.textTransform = `rotate(${angle})`;
-      this.textAnchor = TextAnchor.End;
       this.verticalSpacing = 10;
+      if (this.orient === Orientation.Bottom) {
+        this.textAnchor = TextAnchor.End;
+        this.textTransform = `translate(0, ${this.verticalSpacing}) rotate(${angle})`;
+      } else {
+        this.textAnchor = TextAnchor.Start;
+        this.textTransform = `translate(0, ${-this.verticalSpacing}) rotate(${angle})`;
+      }
     } else {
+      if (this.orient === Orientation.Bottom) {
+        this.textTransform = `translate(0, ${this.verticalSpacing})`;
+      } else {
+        this.textTransform = `translate(0, ${-this.verticalSpacing})`;
+      }
       this.textAnchor = TextAnchor.Middle;
     }
 
@@ -232,11 +255,11 @@ export class XAxisTicksComponent implements OnChanges, AfterViewInit {
   }
 
   tickTransform(tick: number): string {
-    return 'translate(' + this.adjustedScale(tick) + ',' + this.verticalSpacing + ')';
+    return 'translate(' + this.adjustedScale(tick) + ',0)';
   }
 
   gridLineTransform(): string {
-    return `translate(0,${-this.verticalSpacing - 5})`;
+    return `translate(0,${-5})`;
   }
 
   tickTrim(label: string): string {

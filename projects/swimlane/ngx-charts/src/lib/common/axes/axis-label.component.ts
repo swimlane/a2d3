@@ -47,7 +47,7 @@ export class AxisLabelComponent implements OnChanges {
 
     switch (this.orient) {
       case Orientation.Top:
-        this.y = this.offset;
+        this.y = -this.offset;
         this.x = this.width / 2;
         break;
       case Orientation.Bottom:
