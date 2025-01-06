@@ -78,6 +78,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
               [xScale]="xScale"
               [yScale]="yScale"
               [activeEntries]="activeEntries"
+              [ngStyle]="getStyle(chartTransparency)"
               [colors]="colors"
               [series]="group.series"
               [dims]="dims"
@@ -135,6 +136,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
   ]
 })
 export class BarVerticalNormalizedComponent extends BaseChartComponent {
+  @Input() chartTransparency: number = 0;
   @Input() legend: boolean = false;
   @Input() legendTitle: string = 'Legend';
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
@@ -233,6 +235,12 @@ export class BarVerticalNormalizedComponent extends BaseChartComponent {
     return domain;
   }
 
+  getStyle(transparency: number): object {
+    return {
+      opacity: 1 - transparency / 100
+    };
+  }
+  
   getInnerDomain(): string[] {
     const domain = [];
     for (const group of this.results) {

@@ -33,7 +33,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ]
       },
       {
@@ -67,7 +68,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -106,7 +108,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ]
       },
       {
@@ -141,7 +144,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -178,7 +182,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ]
       },
       {
@@ -211,7 +216,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -246,7 +252,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ],
         defaults: {
           yAxisLabel: 'Normalized GDP Per Capita',
@@ -281,7 +288,8 @@ const chartGroups = [
           'rotateXAxisTicks',
           'maxXAxisTickLength',
           'maxYAxisTickLength',
-          'wrapTicks'
+          'wrapTicks',
+          'chartTransparency'
         ],
         defaults: {
           yAxisLabel: 'Country',
@@ -339,6 +347,7 @@ const chartGroups = [
           'showXAxis',
           'showYAxis',
           'gradient',
+          'lineTransparency',
           'showLegend',
           'legendTitle',
           'legendPosition',
@@ -706,6 +715,9 @@ const chartGroups = [
           'gradient',
           'showLegend',
           'noBarWhenZero',
+          'lineTransparency',
+          'chartTransparency',
+          'flag',
           'legendTitle',
           'legendPosition',
           'showXAxisLabel',

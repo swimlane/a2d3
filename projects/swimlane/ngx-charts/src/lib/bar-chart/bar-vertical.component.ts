@@ -80,6 +80,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
           [roundEdges]="roundEdges"
           [animations]="animations"
           [noBarWhenZero]="noBarWhenZero"
+          [ngStyle]="getStyle(chartTransparency)"
           (activate)="onActivate($event)"
           (deactivate)="onDeactivate($event)"
           (select)="onClick($event)"
@@ -93,6 +94,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
   encapsulation: ViewEncapsulation.None
 })
 export class BarVerticalComponent extends BaseChartComponent {
+  @Input() chartTransparency : number = 0;
   @Input() legend = false;
   @Input() legendTitle: string = 'Legend';
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
@@ -210,6 +212,12 @@ export class BarVerticalComponent extends BaseChartComponent {
       max = Math.max(max, ...this.yAxisTicks);
     }
     return [min, max];
+  }
+
+  getStyle(transparency: number): object {
+    return {
+      opacity: 1 - transparency / 100
+    };
   }
 
   onClick(data: DataItem | string) {

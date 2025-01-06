@@ -83,6 +83,7 @@ import { isPlatformServer } from '@angular/common';
             [@animationState]="'active'"
             [attr.transform]="groupTransform(group)"
             [activeEntries]="activeEntries"
+            [ngStyle]="getStyle(chartTransparency)"
             [xScale]="innerScale"
             [yScale]="valueScale"
             [colors]="colors"
@@ -148,6 +149,7 @@ import { isPlatformServer } from '@angular/common';
   ]
 })
 export class BarVertical2DComponent extends BaseChartComponent {
+  @Input() chartTransparency: number = 0;
   @Input() legend: boolean = false;
   @Input() legendTitle: string = 'Legend';
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
@@ -262,6 +264,12 @@ export class BarVertical2DComponent extends BaseChartComponent {
     if (groupIndex === this.results.length - 1) {
       setTimeout(() => this.update());
     }
+  }
+
+  getStyle(transparency: number): object {
+    return {
+      opacity: 1 - transparency / 100
+    };
   }
 
   getGroupScale(): any {
