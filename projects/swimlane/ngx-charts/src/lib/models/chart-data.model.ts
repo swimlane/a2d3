@@ -61,6 +61,19 @@ export interface BubbleChartSeries {
 
 export interface BubbleChartMultiSeries extends Array<BubbleChartSeries> {}
 
+export interface BubbleChart2DDataItem {
+  x: StringOrNumberOrDate;
+  r: number;
+  extra?: any;
+}
+
+export interface BubbleChart2DSeries {
+  name: StringOrNumberOrDate;
+  series: BubbleChart2DDataItem[];
+}
+
+export interface BubbleChart2DMultiSeries extends Array<BubbleChart2DSeries> {}
+
 export interface TreeMapDataItem {
   name: StringOrNumberOrDate;
   size?: number;
