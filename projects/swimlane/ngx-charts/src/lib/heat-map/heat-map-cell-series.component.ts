@@ -43,6 +43,7 @@ interface Cell {
       (deactivate)="deactivate.emit(c.cell)"
       [gradient]="gradient"
       [animations]="animations"
+      [showDataLabel]="showDataLabel"
       ngx-tooltip
       [tooltipDisabled]="tooltipDisabled"
       [tooltipPlacement]="placementTypes.Top"
@@ -50,7 +51,7 @@ interface Cell {
       [tooltipTitle]="tooltipTemplate ? undefined : tooltipText(c)"
       [tooltipTemplate]="tooltipTemplate"
       [tooltipContext]="{ series: c.series, name: c.label, value: c.data }"
-    ></svg:g>
+      ></svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -64,6 +65,7 @@ export class HeatCellSeriesComponent implements OnChanges, OnInit {
   @Input() tooltipText: any;
   @Input() tooltipTemplate: TemplateRef<any>;
   @Input() animations: boolean = true;
+  @Input() showDataLabel: boolean = false;
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();
   @Output() activate: EventEmitter<DataItem> = new EventEmitter();

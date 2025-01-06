@@ -87,6 +87,7 @@ interface RectItem {
           [tooltipDisabled]="tooltipDisabled"
           [tooltipTemplate]="tooltipTemplate"
           [tooltipText]="tooltipText"
+          [showDataLabel]="showDataLabel"
           (select)="onClick($event)"
           (activate)="onActivate($event, undefined)"
           (deactivate)="onDeactivate($event, undefined)"
@@ -125,6 +126,7 @@ export class HeatMapComponent extends BaseChartComponent {
   @Input() max: number;
   @Input() activeEntries: any[] = [];
   @Input() wrapTicks = false;
+  @Input() showDataLabel: boolean = false;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();

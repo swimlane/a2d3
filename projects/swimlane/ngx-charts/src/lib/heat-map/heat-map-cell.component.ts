@@ -35,6 +35,9 @@ import { id } from '../utils/id';
         class="cell"
         (click)="onClick()"
       />
+      <svg:g  *ngIf="showDataLabel" [attr.transform]="calculateTranslation()">
+        <svg:text> {{this.data}} </svg:text>
+      </svg:g>
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -48,6 +51,7 @@ export class HeatMapCellComponent implements OnChanges {
   @Input() data: number;
   @Input() gradient: boolean = false;
   @Input() animations: boolean = true;
+  @Input() showDataLabel: boolean = false;
 
   @Output() select: EventEmitter<number> = new EventEmitter();
   @Output() activate: EventEmitter<number> = new EventEmitter();
@@ -92,6 +96,54 @@ export class HeatMapCellComponent implements OnChanges {
         opacity: 1
       }
     ];
+  }
+  calculateTranslation(): string {
+    var valueWidth = this.calculateWidth(this.data);
+    if (valueWidth >= (this.width + 4)) {
+      var formatedValue = this.shortenNum(this.data);
+      valueWidth = this.calculateWidth(formatedValue);
+      let textElement = select(this.element).select('.cell').select('text');
+      textElement.text(formatedValue);
+    }
+    // default value height is 25 px
+    var valueHeight = 25;
+    const translateX = (this.width - valueWidth) / 2;
+    const translateY = (this.height - valueHeight) / 2 + 20;
+    return `translate(${translateX}, ${translateY})`;
+  }
+  shortenNum(value: number): string {
+    const abbreviations = [
+      { value: 1e9, symbol: 'B' },
+      { value: 1e6, symbol: 'M' },
+      { value: 1e3, symbol: 'K' },
+    ];
+
+    for (const abbreviation of abbreviations) {
+      if (Math.abs(value) >= abbreviation.value) {
+        const formattedValue = value / abbreviation.value;
+        return `${Math.floor(formattedValue)}${abbreviation.symbol}`;
+      }
+    }
+
+    return value.toString();
+  }
+  calculateWidth(value): number {
+    const digitWidth = 12.6;
+    const kbmWidth = 19;
+
+    const stringValue = value.toLocaleString();
+
+    let totalWidth = 0;
+
+    for (const char of stringValue) {
+      if (/[0-9]/.test(char)) {
+        totalWidth += digitWidth;
+      } else {
+        totalWidth += kbmWidth;
+      }
+      totalWidth -= 3;
+    }
+    return totalWidth;
   }
 
   loadAnimation(): void {
