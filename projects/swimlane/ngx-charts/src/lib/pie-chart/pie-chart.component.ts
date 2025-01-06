@@ -6,12 +6,19 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   ContentChild,
-  TemplateRef
+  TemplateRef,
+  ElementRef,
+  NgZone,
+  ChangeDetectorRef,
+  PLATFORM_ID,
+  Inject,
+  Renderer2
 } from '@angular/core';
 import { calculateViewDimensions } from '../common/view-dimensions.helper';
 import { ColorHelper } from '../common/color.helper';
 import { BaseChartComponent } from '../common/base-chart.component';
 import { DataItem } from '../models/chart-data.model';
+import { PieChartService } from './pie-chart.service';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { ScaleType } from '../common/types/scale-type.enum';
@@ -83,6 +90,15 @@ export class PieChartComponent extends BaseChartComponent {
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
 
+  constructor( protected chartElement: ElementRef,
+    protected zone: NgZone,
+    protected cd: ChangeDetectorRef,
+    protected renderer: Renderer2,
+    protected pieChartSvc: PieChartService,
+    @Inject(PLATFORM_ID) public platformId: any) {
+    super(chartElement, zone, cd, renderer, pieChartSvc);
+  }
+  
   translation: string;
   outerRadius: number;
   innerRadius: number;
@@ -94,7 +110,7 @@ export class PieChartComponent extends BaseChartComponent {
 
   update(): void {
     super.update();
-
+    
     if (this.labels && this.hasNoOptionalMarginsSet()) {
       this.margins = [30, 80, 30, 80];
     } else if (!this.labels && this.hasNoOptionalMarginsSet()) {
@@ -177,6 +193,10 @@ export class PieChartComponent extends BaseChartComponent {
     }
 
     this.activeEntries = [item, ...this.activeEntries];
+    const selected = this.results.findIndex(d => {
+      return d === this.activeEntries[0];
+    });
+    this.pieChartSvc.setSelectedObject(selected)
     this.activate.emit({ value: item, entries: this.activeEntries });
   }
 

@@ -7,6 +7,7 @@ import { PieChartComponent } from './pie-chart.component';
 import { PieGridComponent } from './pie-grid.component';
 import { PieGridSeriesComponent } from './pie-grid-series.component';
 import { PieSeriesComponent } from './pie-series.component';
+import { PieChartService } from './pie-chart.service';
 
 @NgModule({
   imports: [ChartCommonModule],
@@ -27,6 +28,7 @@ import { PieSeriesComponent } from './pie-series.component';
     PieGridComponent,
     PieGridSeriesComponent,
     PieSeriesComponent
-  ]
+  ],
+  providers: [PieChartService],
 })
 export class PieChartModule {}

@@ -1,3 +1,4 @@
+import { PieChartService } from '@swimlane/ngx-charts/pie-chart/pie-chart.service';
 import { PlacementTypes } from './placement-type.enum';
 
 const caretOffset = 7;
@@ -210,27 +211,50 @@ export class PositionHelper {
     return { top, left };
   }
 
-  /**
+ /**
    * Position content
    *
    * @memberOf PositionHelper
    */
-  static positionContent(placement, elmDim, hostDim, spacing, alignment): any {
+  static positionContent(placement, elmDim, hostDim, spacing, alignment, pieChartDoughnout?, pieChartSvc?: PieChartService): any {
     let top = 0;
     let left = 0;
-
     if (placement === PlacementTypes.Right) {
-      left = hostDim.left + hostDim.width + spacing;
-      top = PositionHelper.calculateVerticalAlignment(hostDim, elmDim, alignment);
+      //TODO: Implement positioning adjustment
+      if (pieChartDoughnout) {
+        top = PositionHelper.calculateTopPosition(hostDim, pieChartSvc.radius.outerRadius, pieChartSvc.radius.innerRadius, spacing) + pieChartSvc.actuallyCentroidCoords.y - spacing * 2
+        left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment) + pieChartSvc.actuallyCentroidCoords.x
+      } else {
+        left = hostDim.left + hostDim.width + spacing;
+        top = PositionHelper.calculateVerticalAlignment(hostDim, elmDim, alignment);
+      }
     } else if (placement === PlacementTypes.Left) {
-      left = hostDim.left - elmDim.width - spacing;
-      top = PositionHelper.calculateVerticalAlignment(hostDim, elmDim, alignment);
+      //TODO: Implement positioning adjustment
+      if (pieChartDoughnout) {
+        top = PositionHelper.calculateTopPosition(hostDim, pieChartSvc.radius.outerRadius, pieChartSvc.radius.innerRadius, spacing) + pieChartSvc.actuallyCentroidCoords.y - spacing * 2
+        left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment) + pieChartSvc.actuallyCentroidCoords.x
+      } else {
+        left = hostDim.left - elmDim.width - spacing;
+        top = PositionHelper.calculateVerticalAlignment(hostDim, elmDim, alignment);
+      }
     } else if (placement === PlacementTypes.Top) {
-      top = hostDim.top - elmDim.height - spacing;
-      left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment);
+      if (pieChartDoughnout) {
+        const OFFSET_TOP = 20
+        top = PositionHelper.calculateTopPosition(hostDim, pieChartSvc.radius.outerRadius, pieChartSvc.radius.innerRadius, spacing) + pieChartSvc.actuallyCentroidCoords.y - OFFSET_TOP
+        left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment) + pieChartSvc.actuallyCentroidCoords.x
+      } else {
+        top = hostDim.top - elmDim.height - spacing;
+        left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment);
+      }
     } else if (placement === PlacementTypes.Bottom) {
-      top = hostDim.top + hostDim.height + spacing;
-      left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment);
+      if (pieChartDoughnout) {
+        const OFFSET_TOP = 40
+        top = PositionHelper.calculateTopPosition(hostDim, pieChartSvc.radius.outerRadius, pieChartSvc.radius.innerRadius, spacing) + pieChartSvc.actuallyCentroidCoords.y + OFFSET_TOP
+        left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment) + pieChartSvc.actuallyCentroidCoords.x
+      } else {
+        top = hostDim.top + hostDim.height + spacing;
+        left = PositionHelper.calculateHorizontalAlignment(hostDim, elmDim, alignment);
+      }
     }
 
     return { top, left };
@@ -257,5 +281,9 @@ export class PositionHelper {
     }
 
     return placement;
+  }
+
+  static calculateTopPosition(hostDim: DOMRect, outerRadius, innerRadius, spacing): number {
+    return innerRadius <= 0  ?  hostDim.top + hostDim.height/2 - 47 : hostDim.top + hostDim.height/2 - (outerRadius - innerRadius) - spacing
   }
 }

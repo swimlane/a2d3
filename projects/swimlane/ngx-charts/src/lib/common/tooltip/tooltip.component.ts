@@ -18,6 +18,7 @@ import { PositionHelper, PlacementTypes } from './position';
 
 import { StyleTypes } from './style.type';
 import { isPlatformBrowser } from '@angular/common';
+import { PieChartService } from '@swimlane/ngx-charts/pie-chart/pie-chart.service';
 
 @Component({
   selector: 'ngx-tooltip-content',
@@ -58,7 +59,7 @@ export class TooltipContentComponent implements AfterViewInit {
     return clz;
   }
 
-  constructor(public element: ElementRef, private renderer: Renderer2, @Inject(PLATFORM_ID) private platformId: any) {}
+  constructor(public element: ElementRef, private renderer: Renderer2, @Inject(PLATFORM_ID) private platformId: any, private pieChartSvc: PieChartService) {}
 
   ngAfterViewInit(): void {
     setTimeout(this.position.bind(this));
@@ -70,14 +71,26 @@ export class TooltipContentComponent implements AfterViewInit {
     }
 
     const nativeElm = this.element.nativeElement;
-    const hostDim = this.host.nativeElement.getBoundingClientRect();
+    const hostSvg = this.renderer.parentNode(this.host.nativeElement)
+    //TODO: Implement positioning adjustment for other placements
+    const isPieChart = this.renderer.parentNode(this.renderer.parentNode(hostSvg)).classList.contains('pie-chart') && (this.placement === 'bottom' || this.placement === 'top');
+    
+    let hostDim
+
+    //TODO: Implement positioning adjustment for other placements
+    if (isPieChart) {
+      const hostSvg = this.renderer.parentNode(this.host.nativeElement)
+      hostDim =  this.renderer.parentNode(hostSvg).getBoundingClientRect();
+    } else {
+      hostDim = this.host.nativeElement.getBoundingClientRect();
+    }
 
     // if no dims were found, never show
     if (!hostDim.height && !hostDim.width) return;
 
     const elmDim = nativeElm.getBoundingClientRect();
     this.checkFlip(hostDim, elmDim);
-    this.positionContent(nativeElm, hostDim, elmDim);
+    this.positionContent(nativeElm, hostDim, elmDim, isPieChart);
 
     if (this.showCaret) {
       this.positionCaret(hostDim, elmDim);
@@ -87,12 +100,12 @@ export class TooltipContentComponent implements AfterViewInit {
     setTimeout(() => this.renderer.addClass(nativeElm, 'animate'), 1);
   }
 
-  positionContent(nativeElm: HTMLElement, hostDim: DOMRect, elmDim: DOMRect): void {
-    const { top, left } = PositionHelper.positionContent(this.placement, elmDim, hostDim, this.spacing, this.alignment);
-
-    this.renderer.setStyle(nativeElm, 'top', `${top}px`);
-    this.renderer.setStyle(nativeElm, 'left', `${left}px`);
-  }
+  positionContent(nativeElm: HTMLElement, hostDim: DOMRect, elmDim: DOMRect, isPieChart: boolean ): void {
+     const { top, left } = PositionHelper.positionContent(this.placement, elmDim, hostDim, this.spacing, this.alignment, isPieChart, this.pieChartSvc);
+ 
+     this.renderer.setStyle(nativeElm, 'top', `${top}px`);
+     this.renderer.setStyle(nativeElm, 'left', `${left}px`);
+   }
 
   positionCaret(hostDim: DOMRect, elmDim: DOMRect): void {
     const caretElm = this.caretElm.nativeElement;

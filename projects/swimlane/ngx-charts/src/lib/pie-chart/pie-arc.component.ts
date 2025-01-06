@@ -14,6 +14,7 @@ import { arc } from 'd3-shape';
 import { id } from '../utils/id';
 import { DataItem } from '../models/chart-data.model';
 import { BarOrientation } from '../common/types/bar-orientation.enum';
+import { PieChartService } from './pie-chart.service';
 
 @Component({
   selector: 'g[ngx-charts-pie-arc]',
@@ -57,7 +58,7 @@ export class PieArcComponent implements OnChanges {
   @Output() activate = new EventEmitter();
   @Output() deactivate = new EventEmitter();
   @Output() dblclick = new EventEmitter();
-
+  
   barOrientation = BarOrientation;
 
   element: HTMLElement;
@@ -69,7 +70,7 @@ export class PieArcComponent implements OnChanges {
 
   private _timeout;
 
-  constructor(element: ElementRef) {
+  constructor(element: ElementRef, private PieChartSvg: PieChartService) {
     this.element = element.nativeElement;
   }
 
@@ -90,6 +91,8 @@ export class PieArcComponent implements OnChanges {
     this.startOpacity = 0.5;
     this.radialGradientId = 'linearGrad' + id().toString();
     this.gradientFill = `url(#${this.radialGradientId})`;
+    this.PieChartSvg.newCoords(this.calculateCentroid(calc))
+    this.PieChartSvg.setRadius(this.outerRadius, this.innerRadius)
 
     if (this.animate) {
       if (this.initialized) {
@@ -112,6 +115,12 @@ export class PieArcComponent implements OnChanges {
     return arc().innerRadius(this.innerRadius).outerRadius(outerRadius).cornerRadius(this.cornerRadius);
   }
 
+  calculateCentroid(arc): any {
+    //Example: https://d3js.org/d3-shape/arc#arc_centroid
+    const [centroidX, centroidY] = arc.centroid({innerRadius: this.innerRadius , outerRadius: this.outerRadius , endAngle: this.endAngle , startAngle: this.startAngle});
+    return {x: centroidX, y: centroidY}
+  }
+  
   loadAnimation(): void {
     const node = select(this.element)
       .selectAll('.arc')
